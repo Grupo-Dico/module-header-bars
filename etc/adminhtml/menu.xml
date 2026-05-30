@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Menu/etc/menu.xsd">
+    <menu>
+        <add 
+            id="LeanCommerce_LeanZote::content_group"
+            title="Promociones del sitio"
+            module="LeanCommerce_LeanZote" 
+            sortOrder="10" 
+            parent="Magento_Backend::content" 
+            resource="LeanCommerce_LeanZote::banners"/>
+        <add 
+            id="LeanCommerce_LeanZote::banners" 
+            title="Barra superior de anuncios"
+            module="LeanCommerce_LeanZote" 
+            sortOrder="10" 
+            parent="LeanCommerce_LeanZote::content_group" 
+            action="leanzote/banner/index" 
+            resource="LeanCommerce_LeanZote::banners"/>
+    </menu>
+</config>

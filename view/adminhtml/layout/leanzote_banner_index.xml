@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="leanzote_banner_listing"/>
+        </referenceContainer>
+        <referenceBlock name="page.title">
+            <action method="setTitleClass">
+                <argument name="class" xsi:type="string">complex</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,23 @@
+{
+  "name": "leancommerce/module-header-bars",
+  "description": "Módulo que configura banners promocionales en el header",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+    "proprietary"
+  ],
+  "require": {
+    "php": ">=7.3 <8.5",
+    "magento/framework": "*"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "LeanCommerce\\LeanZote\\": ""
+    }
+  }
+}

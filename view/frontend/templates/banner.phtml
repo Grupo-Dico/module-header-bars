@@ -1,0 +1,360 @@
+<?php /** @var \LeanCommerce\LeanZote\Block\Banner $block */ ?>
+    <style>
+        :root {
+            --leanzote-banner-stack-height: 0px;
+            --leanzote-sticky-header-height: 0px;
+        }
+
+        body.leanzote-banner-visible header.page-header.sticky,
+        body.leanzote-banner-visible .page-header.sticky {
+            top: var(--leanzote-banner-stack-height) !important;
+        }
+
+        body.leanzote-banner-visible header.page-header.sticky + .sections.nav-sections.ninjamenus-desktop-wrapper,
+        body.leanzote-banner-visible .sections.nav-sections.ninjamenus-scrolltofixed.scroll-to-fixed-fixed {
+            top: calc(var(--leanzote-banner-stack-height) + var(--leanzote-sticky-header-height)) !important;
+        }
+
+        .leanzote-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: 9999;
+            display: none;
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            box-sizing: border-box;
+            min-height: 40px;
+        }
+
+        .leanzote-banner__content {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .leanzote-banner__text {
+            line-height: 1.4;
+            margin: 0;
+            flex: 1;
+            min-width: 200px;
+            white-space: pre-line;
+        }
+
+        .leanzote-banner__button {
+            background: #000;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .leanzote-banner__button:hover {
+            background: #333;
+        }
+
+	        .leanzote-banner__counter {
+	            background: #000;
+	            color: #fff;
+	            padding: 4px 12px;
+	            border-radius: 6px;
+	            font-weight: 600;
+	            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+	            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	        }
+
+	        .leanzote-banner__actions .leanzote-banner__counter.leanzote-banner__counter--hidden {
+	            display: none !important;
+	        }
+
+	        .leanzote-counter__numbers {
+	            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .leanzote-counter__separator {
+            color: #fff;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .leanzote-counter__unit {
+            font-size: 9px;
+            font-weight: 500;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .leanzote-counter__time-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+        }
+
+        .leanzote-banner__close {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 1;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease, opacity 0.2s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .leanzote-banner:hover .leanzote-banner__close {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .leanzote-banner__close:hover {
+            background: none;
+            border: none;
+        }
+
+        .leanzote-banner__actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+
+        @media (max-width: 1024px) {
+            .leanzote-banner {
+                padding: 8px 15px;
+                font-size: 14px;
+
+            }
+
+            .leanzote-banner__content {
+                gap: 15px;
+                max-width: 770px;
+            }
+
+            .leanzote-banner__text {
+                min-width: 150px;
+                font-size: 12px;
+            }
+
+            .leanzote-banner__button {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
+
+            .leanzote-banner__counter {
+                padding: 6px 10px;
+            }
+
+            .leanzote-counter__numbers {
+                font-size: 16px;
+                gap: 6px;
+            }
+
+            .leanzote-counter__unit {
+                font-size: 8px;
+            }
+
+            .leanzote-banner__close {
+                right: 30px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .leanzote-banner {
+                padding: 8px 12px;
+                font-size: 13px;
+                position: fixed;
+                left: 0;
+                width: 100%;
+                z-index: 9999;
+                position: fixed !important;
+                box-shadow: none;
+                padding-right: 44px;
+            }
+
+            .leanzote-banner__content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .leanzote-banner__text {
+                min-width: auto;
+                width: 100% !important;
+                font-size: 13px;
+                order: 1;
+                margin-bottom: 5px;
+            }
+
+            .leanzote-banner__button:not(.leanzote-banner__actions .leanzote-banner__button),
+            .leanzote-banner__counter:not(.leanzote-banner__actions .leanzote-banner__counter) {
+                display: none !important;
+            }
+
+            .leanzote-banner__actions {
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                order: 2;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            /* DEFAULT: contador primero, botón después */
+            .leanzote-banner__actions .leanzote-banner__counter {
+                order: 1;
+                padding: 6px 10px;
+                flex-shrink: 0;
+                display: flex !important;
+            }
+
+            .leanzote-banner__actions .leanzote-banner__button {
+                order: 2;
+                font-size: 12px;
+                padding: 6px 16px;
+                flex-shrink: 0;
+                display: block !important;
+            }
+
+            /* CUANDO button_before = TRUE */
+            .leanzote-banner__actions.button-before .leanzote-banner__button {
+                order: 1;
+            }
+
+            .leanzote-banner__actions.button-before .leanzote-banner__counter {
+                order: 2;
+            }
+
+            .leanzote-counter__numbers {
+                font-size: 14px;
+                gap: 4px;
+            }
+
+            .leanzote-counter__unit {
+                font-size: 7px;
+            }
+
+            .leanzote-banner__close {
+                right: 8px;
+                top: 8px;
+                transform: none;
+                font-size: 18px;
+                width: 30px;
+                height: 30px;
+                z-index: 2;
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .leanzote-banner {
+                padding: 6px 10px;
+                font-size: 12px;
+                position: fixed;
+
+                left: 0;
+                width: 100%;
+                z-index: 9999;
+                padding-right: 38px;
+            }
+
+            .leanzote-banner__content {
+                gap: 6px;
+            }
+
+            .leanzote-banner__text {
+                font-size: 12px;
+                line-height: 1.3;
+                width: 90%;
+                order: 1;
+            }
+
+            .leanzote-banner__actions {
+                gap: 8px;
+                order: 2;
+            }
+
+            .leanzote-banner__actions .leanzote-banner__button {
+                font-size: 11px;
+                padding: 5px 14px;
+            }
+
+            .leanzote-banner__actions .leanzote-banner__counter {
+                padding: 4px 8px;
+            }
+
+            .leanzote-counter__numbers {
+                font-size: 12px;
+                gap: 3px;
+            }
+
+            .leanzote-counter__unit {
+                font-size: 6px;
+                letter-spacing: 0.3px;
+            }
+
+            .leanzote-banner__close {
+                right: 6px;
+                top: 6px;
+                transform: none;
+                font-size: 16px;
+                width: 28px;
+                height: 28px;
+                z-index: 2;
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+    </style>
+
+<div id="leanzote-banner-root" data-role="leanzote-banner"></div>
+<script type="text/x-magento-init">
+{
+    "#leanzote-banner-root": {
+        "LeanCommerce_LeanZote/js/banner": {
+            "endpointUrl": "<?= $block->escapeUrl($block->getEndpointUrl()) ?>"
+        }
+    }
+}
+</script>

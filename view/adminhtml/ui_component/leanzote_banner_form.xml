@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">leanzote_banner_form.leanzote_banner_form_data_source</item>
+            <item name="deps" xsi:type="string">leanzote_banner_form.leanzote_banner_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Anuncio de barra superior</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">leanzote_banner_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Volver</item>
+                <item name="class" xsi:type="string">secondary</item>
+                <item name="url" xsi:type="string">*/*/</item>
+                <item name="sort_order" xsi:type="number">10</item>
+            </item>
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Guardar</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/save</item>
+                <item name="sort_order" xsi:type="number">20</item>
+            </item>
+            <item name="save_and_continue" xsi:type="array">
+                <item name="name" xsi:type="string">save_and_continue</item>
+                <item name="label" xsi:type="string" translate="true">Guardar y continuar editando</item>
+                <item name="class" xsi:type="string">secondary</item>
+                <item name="url" xsi:type="string">*/*/save</item>
+                <item name="sort_order" xsi:type="number">30</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="leanzote_banner_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">LeanCommerce\LeanZote\Model\Banner\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">leanzote_banner_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">banner_id</argument>
+            <argument name="requestFieldName" xsi:type="string">banner_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="leanzote/banner/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="publication_scope">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">1. Publicación y alcance</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+        <field name="is_active">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Mostrar banner en frontend</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">is_active</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">Apágalo para ocultar el banner inmediatamente, aunque sus fechas sigan vigentes.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="store_id" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">LeanCommerce\LeanZote\Model\Banner\Source\StoreViews</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="label" xsi:type="string" translate="true">Mostrar en tiendas</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">store_id</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Selecciona una o varias tiendas. All Store Views publica el mismo banner en todas.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="schedule">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">2. Programación</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <field name="start_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="component" xsi:type="string">LeanCommerce_LeanZote/js/form/element/local-date</item>
+                    <item name="label" xsi:type="string" translate="true">Publicar desde</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">start_date</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="timezone" xsi:type="boolean">false</item>
+                    <item name="notice" xsi:type="string" translate="true">Fecha y hora a partir de la cual el banner puede aparecer.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="end_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="component" xsi:type="string">LeanCommerce_LeanZote/js/form/element/local-date</item>
+                    <item name="label" xsi:type="string" translate="true">Publicar hasta</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">end_date</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="timezone" xsi:type="boolean">false</item>
+                    <item name="notice" xsi:type="string" translate="true">Al llegar esta fecha, el banner dejará de mostrarse automáticamente.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="main_message">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">3. Mensaje principal</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+            </item>
+        </argument>
+        <field name="rich_text_content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Texto visible en la barra superior</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">rich_text_content</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="rows" xsi:type="number">4</item>
+                    <item name="notice" xsi:type="string" translate="true">Escribe el mensaje principal de la promoción. Se mostrará como texto plano en la barra.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="call_to_action">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">4. Botón de acción</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+        <field name="button_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Agregar botón al banner</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">button_enabled</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">Actívalo cuando el banner deba llevar al usuario a una promoción, categoría o landing.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="button_text">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Texto del botón</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">button_text</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="notice" xsi:type="string" translate="true">Ejemplos: Comprar ahora, Ver promoción, Conocer más.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="button_link">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL de destino del botón</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">button_link</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="notice" xsi:type="string" translate="true">Usa una ruta interna como /promociones o una URL completa con https://.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="button_before">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Mostrar botón antes del contador</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">button_before</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">Apagado: el botón aparece después del contador. Encendido: aparece antes del contador.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="countdown">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">5. Contador regresivo</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+            </item>
+        </argument>
+        <field name="counter_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Agregar contador regresivo</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">counter_enabled</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">Actívalo para mostrar días, horas, minutos y segundos restantes.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="start_date_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="component" xsi:type="string">LeanCommerce_LeanZote/js/form/element/local-date</item>
+                    <item name="label" xsi:type="string" translate="true">Mostrar contador desde</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">start_date_button</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="timezone" xsi:type="boolean">false</item>
+                    <item name="notice" xsi:type="string" translate="true">Debe estar dentro del rango de publicación del banner.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="end_date_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="component" xsi:type="string">LeanCommerce_LeanZote/js/form/element/local-date</item>
+                    <item name="label" xsi:type="string" translate="true">Contar hasta</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">end_date_button</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="timezone" xsi:type="boolean">false</item>
+                    <item name="notice" xsi:type="string" translate="true">No puede ser posterior a la fecha final del banner.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="visual_design">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">6. Apariencia</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">60</item>
+            </item>
+        </argument>
+        <colorPicker name="background_color"
+                     class="Magento\Ui\Component\Form\Element\ColorPicker"
+                     component="Magento_Ui/js/form/element/color-picker"
+                     sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="string">#FFFFFF</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Fondo de la barra</label>
+                <dataScope>background_color</dataScope>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>hex</colorFormat>
+                <colorPickerMode>noalpha</colorPickerMode>
+                <notice translate="true">Color hexadecimal del fondo. Ejemplo: #E30613.</notice>
+            </settings>
+        </colorPicker>
+        <colorPicker name="text_color"
+                     class="Magento\Ui\Component\Form\Element\ColorPicker"
+                     component="Magento_Ui/js/form/element/color-picker"
+                     sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="string">#333333</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Texto de la barra</label>
+                <dataScope>text_color</dataScope>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>hex</colorFormat>
+                <colorPickerMode>noalpha</colorPickerMode>
+                <notice translate="true">Color hexadecimal del mensaje y del icono para cerrar. Ejemplo: #FFFFFF.</notice>
+            </settings>
+        </colorPicker>
+        <colorPicker name="button_color_background"
+                     class="Magento\Ui\Component\Form\Element\ColorPicker"
+                     component="Magento_Ui/js/form/element/color-picker"
+                     sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="string">#000000</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Fondo del botón</label>
+                <dataScope>button_color_background</dataScope>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>hex</colorFormat>
+                <colorPickerMode>noalpha</colorPickerMode>
+                <notice translate="true">Color hexadecimal del fondo del botón. Aplica solamente cuando el botón está activo.</notice>
+            </settings>
+        </colorPicker>
+        <colorPicker name="button_color_text"
+                     class="Magento\Ui\Component\Form\Element\ColorPicker"
+                     component="Magento_Ui/js/form/element/color-picker"
+                     sortOrder="40">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="string">#FFFFFF</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Texto del botón</label>
+                <dataScope>button_color_text</dataScope>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>hex</colorFormat>
+                <colorPickerMode>noalpha</colorPickerMode>
+                <notice translate="true">Color hexadecimal del texto del botón. Aplica solamente cuando el botón está activo.</notice>
+            </settings>
+        </colorPicker>
+        <colorPicker name="counter_background_color"
+                     class="Magento\Ui\Component\Form\Element\ColorPicker"
+                     component="Magento_Ui/js/form/element/color-picker"
+                     sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="string">#000000</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Fondo del contador</label>
+                <dataScope>counter_background_color</dataScope>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>hex</colorFormat>
+                <colorPickerMode>noalpha</colorPickerMode>
+                <notice translate="true">Color hexadecimal del fondo del contador. Aplica solamente cuando el contador está activo.</notice>
+            </settings>
+        </colorPicker>
+        <colorPicker name="counter_color_text"
+                     class="Magento\Ui\Component\Form\Element\ColorPicker"
+                     component="Magento_Ui/js/form/element/color-picker"
+                     sortOrder="60">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="default" xsi:type="string">#FFFFFF</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Texto del contador</label>
+                <dataScope>counter_color_text</dataScope>
+                <elementTmpl>ui/form/element/color-picker</elementTmpl>
+                <colorFormat>hex</colorFormat>
+                <colorPickerMode>noalpha</colorPickerMode>
+                <notice translate="true">Color hexadecimal para números, separadores y etiquetas del contador.</notice>
+            </settings>
+        </colorPicker>
+    </fieldset>
+
+    <fieldset name="advanced_rules">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">7. Reglas avanzadas</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">70</item>
+            </item>
+        </argument>
+        <field name="banned_urls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Ocultar banner en estas URLs</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">banned_urls</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="rows" xsi:type="number">4</item>
+                    <item name="notice" xsi:type="string" translate="true">Opcional. Separa rutas con coma. Ejemplo: /checkout, /cart, /customer/account.</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>
