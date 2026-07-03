@@ -95,7 +95,33 @@ class UpgradeSchema implements UpgradeSchemaInterface
             );
         }
 
+        if (version_compare($context->getVersion(), '1.0.5', '<')) {
+            $this->convertTableToUtf8mb4($setup, $tableName);
+        }
+
         $setup->endSetup();
+    }
+
+    /**
+     * Converts an existing table to utf8mb4 so it can store 4-byte characters (emojis).
+     *
+     * Installs created before the utf8mb4 option was added may still use utf8mb3,
+     * which stores emojis as '????'. This normalizes legacy production tables.
+     *
+     * @param SchemaSetupInterface $setup
+     * @param string $tableName
+     * @return void
+     */
+    private function convertTableToUtf8mb4(SchemaSetupInterface $setup, $tableName)
+    {
+        $connection = $setup->getConnection();
+
+        $connection->query(
+            sprintf(
+                'ALTER TABLE %s CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci',
+                $connection->quoteIdentifier($tableName)
+            )
+        );
     }
 
     /**

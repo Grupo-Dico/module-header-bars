@@ -69,6 +69,8 @@ La fecha final no puede ser anterior a la fecha inicial. En base de datos las fe
 
 Mensaje principal que vera el cliente. En frontend se inserta como texto, no como HTML.
 
+Admite emojis y otros caracteres de 4 bytes. La tabla se crea/actualiza en `utf8mb4` y el modulo fuerza `SET NAMES 'utf8mb4'` en la sesion de conexion al leer y guardar, para que los emojis no se reemplacen por `????`.
+
 ### 4. Boton de accion
 
 **Agregar boton al banner** (`button_enabled`)
@@ -206,3 +208,4 @@ El modulo no usa cookies ni `localStorage` para este comportamiento.
 - Validar cierre con `sessionStorage` y que no reaparezca durante la misma sesion.
 - Validar `banned_urls` con rutas validas y con entradas invalidas como `/checkout,`.
 - Validar que guardar un banner eliminado por otro usuario muestre error y no cree un registro nuevo.
+- Validar que un mensaje con emojis se guarde y se muestre correctamente en admin y frontend (no debe quedar `????`).
