@@ -48,6 +48,18 @@ class InstallSchema implements InstallSchemaInterface
                 'Banner ID'
             )
             ->addColumn('rich_text_content', Table::TYPE_TEXT, null, ['nullable' => true], 'Rich Text Content')
+            ->addColumn('mobile_text_content', Table::TYPE_TEXT, null, ['nullable' => true], 'Mobile Text Content')
+            ->addColumn('desktop_text_content_2', Table::TYPE_TEXT, null, ['nullable' => true], 'Desktop Text Content 2')
+            ->addColumn('mobile_text_content_2', Table::TYPE_TEXT, null, ['nullable' => true], 'Mobile Text Content 2')
+            ->addColumn('desktop_text_content_3', Table::TYPE_TEXT, null, ['nullable' => true], 'Desktop Text Content 3')
+            ->addColumn('mobile_text_content_3', Table::TYPE_TEXT, null, ['nullable' => true], 'Mobile Text Content 3')
+            ->addColumn(
+                'carousel_interval',
+                Table::TYPE_SMALLINT,
+                null,
+                ['nullable' => false, 'unsigned' => true, 'default' => 5],
+                'Carousel Interval Seconds'
+            )
             ->addColumn('button_text', Table::TYPE_TEXT, 255, ['nullable' => true], 'Button Text')
             ->addColumn('button_link', Table::TYPE_TEXT, 255, ['nullable' => true], 'Button Link')
             ->addColumn('start_date', Table::TYPE_DATETIME, null, ['nullable' => true], 'Start Date')

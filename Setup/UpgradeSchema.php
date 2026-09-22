@@ -96,32 +96,45 @@ class UpgradeSchema implements UpgradeSchemaInterface
         }
 
         if (version_compare($context->getVersion(), '1.0.5', '<')) {
-            $this->convertTableToUtf8mb4($setup, $tableName);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_text_content', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Mobile Text Content',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_text_content_2', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Desktop Text Content 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_text_content_2', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Mobile Text Content 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_text_content_3', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Desktop Text Content 3',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_text_content_3', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Mobile Text Content 3',
+            ]);
+        }
+
+
+        if (version_compare($context->getVersion(), '1.0.6', '<')) {
+            $this->addColumnIfMissing($setup, $tableName, 'carousel_interval', [
+                'type' => Table::TYPE_SMALLINT,
+                'nullable' => false,
+                'unsigned' => true,
+                'default' => 5,
+                'comment' => 'Carousel Interval Seconds',
+            ]);
         }
 
         $setup->endSetup();
-    }
-
-    /**
-     * Converts an existing table to utf8mb4 so it can store 4-byte characters (emojis).
-     *
-     * Installs created before the utf8mb4 option was added may still use utf8mb3,
-     * which stores emojis as '????'. This normalizes legacy production tables.
-     *
-     * @param SchemaSetupInterface $setup
-     * @param string $tableName
-     * @return void
-     */
-    private function convertTableToUtf8mb4(SchemaSetupInterface $setup, $tableName)
-    {
-        $connection = $setup->getConnection();
-
-        $connection->query(
-            sprintf(
-                'ALTER TABLE %s CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci',
-                $connection->quoteIdentifier($tableName)
-            )
-        );
     }
 
     /**

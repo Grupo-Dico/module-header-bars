@@ -25,6 +25,12 @@ class Save extends Action
      */
     private const ALLOWED_FIELDS = [
         'rich_text_content',
+        'mobile_text_content',
+        'desktop_text_content_2',
+        'mobile_text_content_2',
+        'desktop_text_content_3',
+        'mobile_text_content_3',
+        'carousel_interval',
         'button_text',
         'button_link',
         'start_date',
@@ -191,6 +197,11 @@ class Save extends Action
             $this->messageManager->addErrorMessage($e->getMessage());
             return $resultRedirect->setPath('*/*/edit', ['banner_id' => $id]);
         }
+
+        // Intervalo configurable del carrusel. Se limita a 2-60 segundos para evitar
+        // cambios demasiado rápidos o valores accidentales excesivos.
+        $carouselInterval = isset($formData['carousel_interval']) ? (int) $formData['carousel_interval'] : 5;
+        $formData['carousel_interval'] = max(2, min(60, $carouselInterval));
 
         $safeData = array_intersect_key($formData, array_flip(self::ALLOWED_FIELDS));
         $safeData['store_id'] = reset($storeIds);

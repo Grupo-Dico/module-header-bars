@@ -162,17 +162,18 @@
     <fieldset name="main_message">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">3. Mensaje principal</item>
+                <item name="label" xsi:type="string" translate="true">3. Mensajes promocionales (Desktop / Mobile)</item>
                 <item name="collapsible" xsi:type="boolean">true</item>
                 <item name="opened" xsi:type="boolean">true</item>
                 <item name="sortOrder" xsi:type="number">30</item>
             </item>
         </argument>
+
         <field name="rich_text_content">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Texto visible en la barra superior</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 1 - Desktop</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">rich_text_content</item>
@@ -180,8 +181,102 @@
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
-                    <item name="rows" xsi:type="number">4</item>
-                    <item name="notice" xsi:type="string" translate="true">Escribe el mensaje principal de la promoción. Se mostrará como texto plano en la barra.</item>
+                    <item name="rows" xsi:type="number">3</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy principal para Desktop. Este campo conserva el contenido de los banners existentes.</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="mobile_text_content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 1 - Mobile</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_text_content</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="rows" xsi:type="number">2</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy corto para Mobile. Si se deja vacío, se utilizará el texto de Desktop.</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="desktop_text_content_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Desktop (opcional)</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_text_content_2</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="rows" xsi:type="number">3</item>
+                    <item name="notice" xsi:type="string" translate="true">Segundo mensaje del carrusel para Desktop.</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="mobile_text_content_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Mobile (opcional)</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_text_content_2</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="rows" xsi:type="number">2</item>
+                    <item name="notice" xsi:type="string" translate="true">Segundo mensaje del carrusel para Mobile. Si está vacío, usa el Mensaje 2 de Desktop.</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="desktop_text_content_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Desktop (opcional)</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_text_content_3</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="rows" xsi:type="number">3</item>
+                    <item name="notice" xsi:type="string" translate="true">Tercer mensaje del carrusel para Desktop.</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="mobile_text_content_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Mobile (opcional)</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_text_content_3</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="rows" xsi:type="number">2</item>
+                    <item name="notice" xsi:type="string" translate="true">Tercer mensaje del carrusel para Mobile. Si está vacío, usa el Mensaje 3 de Desktop.</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="carousel_interval">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="label" xsi:type="string" translate="true">Tiempo entre mensajes del carrusel (segundos)</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">carousel_interval</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="default" xsi:type="number">5</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Indica cada cuántos segundos cambiará el mensaje. Valores permitidos: 2 a 60 segundos. Valor recomendado: 5.</item>
                 </item>
             </argument>
         </field>

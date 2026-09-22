@@ -129,7 +129,10 @@ class ActiveBannerProvider
 
         return [
             'id' => (int) $banner->getId(),
+            // `content` se conserva para compatibilidad con implementaciones anteriores.
             'content' => (string) $banner->getRichTextContent(),
+            'messages' => $this->buildMessages($banner),
+            'carousel_interval' => max(2, min(60, (int) ($banner->getData('carousel_interval') ?: 5))),
             'start_date' => $this->formatUtcDate($banner->getStartDate()),
             'end_date' => $this->formatUtcDate($banner->getEndDate()),
             'background_color' => $backgroundColor,
@@ -154,6 +157,48 @@ class ActiveBannerProvider
                 'background_color' => $counterBackgroundColor,
             ],
         ];
+    }
+
+    /**
+     * Construye hasta 3 mensajes con copy independiente para desktop/mobile.
+     * Si mobile está vacío, utiliza el texto desktop como fallback.
+     *
+     * @param \LeanCommerce\LeanZote\Model\Banner $banner
+     * @return array
+     */
+    private function buildMessages($banner)
+    {
+        $rows = [
+            [(string) $banner->getRichTextContent(), (string) $banner->getMobileTextContent()],
+            [(string) $banner->getData('desktop_text_content_2'), (string) $banner->getData('mobile_text_content_2')],
+            [(string) $banner->getData('desktop_text_content_3'), (string) $banner->getData('mobile_text_content_3')],
+        ];
+        $messages = [];
+
+        foreach ($rows as $row) {
+            $desktop = trim($row[0]);
+            $mobile = trim($row[1]);
+
+            // Un slide existe cuando al menos uno de sus copies fue capturado.
+            if ($desktop === '' && $mobile === '') {
+                continue;
+            }
+
+            // Fallback bidireccional para evitar slides vacíos en un dispositivo.
+            if ($desktop === '') {
+                $desktop = $mobile;
+            }
+            if ($mobile === '') {
+                $mobile = $desktop;
+            }
+
+            $messages[] = [
+                'desktop' => $desktop,
+                'mobile' => $mobile,
+            ];
+        }
+
+        return array_slice($messages, 0, 3);
     }
 
     /**

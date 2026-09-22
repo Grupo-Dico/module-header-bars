@@ -2,7 +2,7 @@
   "name": "leancommerce/module-header-bars",
   "description": "Módulo que configura banners promocionales en el header",
   "type": "magento2-module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": [
     "proprietary"
   ],

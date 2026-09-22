@@ -1,0 +1,914 @@
+//
+// LeanCommerce - Header Promotional Bar
+// ---------------------------------------------
+
+:root {
+    --leanzote-banner-stack-height: 0px;
+    --leanzote-sticky-header-height: 0px;
+}
+
+
+//
+// Sticky header compensation
+// ---------------------------------------------
+
+body.leanzote-banner-visible {
+    header.page-header.sticky,
+    .page-header.sticky {
+        top: var(--leanzote-banner-stack-height) !important;
+    }
+
+    header.page-header.sticky + .sections.nav-sections.ninjamenus-desktop-wrapper,
+    .sections.nav-sections.ninjamenus-scrolltofixed.scroll-to-fixed-fixed {
+        top: calc(
+            var(--leanzote-banner-stack-height) +
+            var(--leanzote-sticky-header-height)
+        ) !important;
+    }
+}
+
+
+//
+// Banner
+// ---------------------------------------------
+
+.leanzote-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: none;
+
+    width: 100%;
+    min-height: 40px;
+
+    box-sizing: border-box;
+
+    z-index: 9999;
+
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 15px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+
+    transition: all .3s ease;
+    backdrop-filter: blur(4px);
+
+
+    //
+    // Contenedor general
+    //
+
+    &__content {
+        position: relative;
+
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        max-width: 1400px;
+
+        margin: 0 auto;
+
+        gap: 20px;
+
+        flex-wrap: wrap;
+
+        text-align: center;
+    }
+
+
+    //
+    // ==========================================================
+    // CARRUSEL
+    //
+    // Desktop:
+    //
+    // <                    TEXTO                    >
+    //
+    // ==========================================================
+    //
+
+    &__message-area {
+        display: grid;
+
+        grid-template-columns:
+            50px
+            minmax(0, 1fr)
+            50px;
+
+        grid-template-areas:
+            "previous message next";
+
+        align-items: center;
+
+        /*
+         * La separación entre flecha/texto ya la proporciona
+         * la columna central.
+         */
+        column-gap: 20px;
+
+        /*
+         * Ocupamos prácticamente todo el header.
+         */
+        width: 100%;
+        max-width: 1320px;
+
+        min-width: 0;
+
+        margin: 0 auto;
+
+        flex: 1 1 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    //
+    // Texto
+    // -----------------------------------------
+
+    &__text {
+        grid-area: message;
+
+        width: 100%;
+        min-width: 0;
+
+        margin: 0;
+
+        line-height: 1.4;
+
+        text-align: center;
+
+        white-space: pre-line;
+
+        overflow-wrap: normal;
+        word-break: normal;
+    }
+
+
+    //
+    // Un solo mensaje:
+    // no reservar espacio para flechas.
+    // -----------------------------------------
+
+    &__message-area &__text:first-child:last-child {
+        grid-column: 1 / -1;
+        grid-area: auto;
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    //
+    // Flechas
+    // -----------------------------------------
+
+    &__nav {
+        appearance: none;
+        -webkit-appearance: none;
+
+        position: static;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 50px;
+        width: 50px;
+        height: 36px;
+
+        padding: 0;
+        margin: 0;
+
+        border: 0;
+        background: transparent;
+
+        box-shadow: none;
+
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+
+        cursor: pointer;
+
+        opacity: .95;
+
+        flex-shrink: 0;
+
+        &:hover,
+        &:focus,
+        &:active {
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+
+            opacity: 1;
+        }
+
+        //
+        // Flecha izquierda al extremo izquierdo
+        //
+
+        &--prev {
+            grid-area: previous;
+
+            justify-self: start;
+        }
+
+        //
+        // Flecha derecha al extremo derecho
+        //
+
+        &--next {
+            grid-area: next;
+
+            justify-self: end;
+        }
+    }
+
+
+    //
+    // CTA
+    // -----------------------------------------
+
+    &__button {
+        padding: 6px 14px;
+
+        border-radius: 6px;
+
+        background: #000;
+        color: #fff;
+
+        text-decoration: none;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        transition: background .3s ease;
+
+        &:hover {
+            background: #333;
+        }
+    }
+
+
+    //
+    // Counter
+    // -----------------------------------------
+
+    &__counter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 2px;
+
+        padding: 4px 12px;
+
+        border-radius: 6px;
+
+        background: #000;
+        color: #fff;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+
+        &.leanzote-banner__counter--hidden {
+            display: none !important;
+        }
+    }
+
+
+    //
+    // Actions
+    // -----------------------------------------
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 20px;
+
+        flex-wrap: wrap;
+
+        .leanzote-banner__counter {
+            &.leanzote-banner__counter--hidden {
+                display: none !important;
+            }
+        }
+    }
+
+
+    //
+    // Close
+    // -----------------------------------------
+
+    &__close {
+        position: absolute;
+
+        top: 50%;
+        right: 20px;
+
+        transform: translateY(-50%);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 32px;
+        height: 32px;
+
+        padding: 0;
+
+        border: 0;
+        border-radius: 50%;
+
+        background: none;
+
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1;
+
+        cursor: pointer;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transition:
+            background .3s ease,
+            opacity .2s ease;
+
+        &:hover {
+            border: 0;
+            background: none;
+        }
+    }
+
+    &:hover {
+        .leanzote-banner__close {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+
+//
+// Countdown
+// ---------------------------------------------
+
+.leanzote-counter {
+    &__numbers {
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    &__separator {
+        color: #fff;
+
+        opacity: .8;
+
+        font-weight: 600;
+    }
+
+    &__unit {
+        color: #fff;
+
+        font-size: 9px;
+        font-weight: 500;
+
+        opacity: .9;
+
+        letter-spacing: .5px;
+        text-transform: uppercase;
+    }
+
+    &__time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 1px;
+    }
+}
+
+
+//
+// ============================================================
+// TABLET
+// ============================================================
+//
+// IMPORTANTE:
+//
+// No reducimos message-area a 720px.
+// Queremos conservar las flechas separadas.
+//
+// ---------------------------------------------
+
+@media only screen and (max-width: 1024px) {
+
+    .leanzote-banner {
+        padding: 8px 15px;
+
+        font-size: 14px;
+
+        &__content {
+            width: 100%;
+            max-width: 100%;
+
+            gap: 15px;
+        }
+
+        &__message-area {
+            width: 100%;
+            max-width: 100%;
+
+            grid-template-columns:
+                44px
+                minmax(0, 1fr)
+                44px;
+
+            column-gap: 20px;
+        }
+
+        &__nav {
+            min-width: 44px;
+            width: 44px;
+
+            font-size: 26px;
+        }
+
+        &__text {
+            font-size: 12px;
+        }
+
+        &__button {
+            padding: 5px 12px;
+
+            font-size: 12px;
+        }
+
+        &__counter {
+            padding: 6px 10px;
+        }
+
+        &__close {
+            right: 30px;
+
+            font-size: 20px;
+        }
+    }
+
+    .leanzote-counter {
+        &__numbers {
+            gap: 6px;
+
+            font-size: 16px;
+        }
+
+        &__unit {
+            font-size: 8px;
+        }
+    }
+}
+
+
+//
+// ============================================================
+// MOBILE
+//
+// Estructura:
+//
+//      <          TEXTO          >        X
+//
+// ============================================================
+//
+
+@media only screen and (max-width: 767px) {
+
+    .leanzote-banner {
+        position: fixed !important;
+
+        left: 0;
+
+        width: 100%;
+
+        /*
+         * Dejamos espacio independiente para la X.
+         */
+        padding:
+            8px
+            46px
+            8px
+            10px;
+
+        z-index: 9999;
+
+        box-shadow: none;
+
+        font-size: 13px;
+
+
+        //
+        // Contenedor
+        //
+
+        &__content {
+            display: flex !important;
+            flex-direction: column;
+
+            width: 100%;
+            max-width: none;
+
+            margin: 0;
+
+            gap: 8px;
+
+            text-align: center;
+        }
+
+
+        //
+        // Carrusel Mobile
+        //
+        // SIEMPRE:
+        //
+        // < | TEXTO | >
+        //
+
+        &__message-area {
+            display: grid !important;
+
+            grid-template-columns:
+                32px
+                minmax(0, 1fr)
+                32px;
+
+            grid-template-areas:
+                "previous message next";
+
+            align-items: center;
+
+            column-gap: 16px;
+
+            width: 100%;
+            max-width: none;
+
+            min-width: 0;
+
+            margin: 0;
+            padding: 0;
+
+            flex:
+                0
+                0
+                auto;
+
+            order: 1;
+
+            box-sizing: border-box;
+        }
+
+
+        //
+        // Flechas Mobile
+        //
+
+        &__nav {
+            position: static !important;
+
+            min-width: 32px;
+            width: 32px;
+            height: 32px;
+
+            margin: 0;
+            padding: 0;
+
+            transform: none !important;
+
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+            line-height: 1;
+
+            &--prev {
+                grid-area: previous;
+
+                justify-self: start;
+            }
+
+            &--next {
+                grid-area: next;
+
+                justify-self: end;
+            }
+        }
+
+
+        //
+        // TEXTO CENTRAL
+        //
+        // La asignación explícita al grid evita:
+        //
+        // < > TEXTO
+        //
+        // y obliga:
+        //
+        // < TEXTO >
+        //
+
+        &__message-area &__text {
+            grid-area: message;
+
+            display: block;
+
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            justify-self: stretch;
+
+            text-align: center;
+
+            font-size: 13px;
+            line-height: 1.25;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            word-break: normal;
+            overflow-wrap: normal;
+        }
+
+
+        //
+        // Un solo mensaje
+        //
+
+        &__message-area &__text:first-child:last-child {
+            grid-column: 1 / -1;
+            grid-area: auto;
+
+            width: 100% !important;
+
+            text-align: center;
+        }
+
+
+        //
+        // Acciones
+        //
+
+        &__button:not(.leanzote-banner__actions .leanzote-banner__button),
+        &__counter:not(.leanzote-banner__actions .leanzote-banner__counter) {
+            display: none !important;
+        }
+
+        &__actions {
+            order: 2;
+
+            display: flex;
+
+            width: 100%;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            .leanzote-banner__counter {
+                order: 1;
+
+                display: flex !important;
+
+                padding: 6px 10px;
+
+                flex-shrink: 0;
+            }
+
+            .leanzote-banner__button {
+                order: 2;
+
+                display: block !important;
+
+                padding: 6px 16px;
+
+                font-size: 12px;
+
+                flex-shrink: 0;
+            }
+
+            &.button-before {
+                .leanzote-banner__button {
+                    order: 1;
+                }
+
+                .leanzote-banner__counter {
+                    order: 2;
+                }
+            }
+        }
+
+
+        //
+        // X
+        //
+
+        &__close {
+            position: absolute;
+
+            top: 50%;
+            right: 7px;
+
+            transform: translateY(-50%);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 30px;
+            height: 30px;
+
+            padding: 0;
+
+            z-index: 10;
+
+            font-size: 18px;
+
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+
+    //
+    // Counter Mobile
+    //
+
+    .leanzote-counter {
+        &__numbers {
+            gap: 4px;
+
+            font-size: 14px;
+        }
+
+        &__unit {
+            font-size: 7px;
+        }
+    }
+}
+
+
+//
+// ============================================================
+// MOBILE PEQUEÑO
+// ============================================================
+//
+
+@media only screen and (max-width: 575px) {
+
+    .leanzote-banner {
+        padding:
+            6px
+            42px
+            6px
+            8px;
+
+        font-size: 12px;
+
+
+        &__content {
+            gap: 6px;
+        }
+
+
+        //
+        // < TEXTO >
+        //
+
+        &__message-area {
+            grid-template-columns:
+                28px
+                minmax(0, 1fr)
+                28px;
+
+            column-gap: 12px;
+
+            width: 100%;
+        }
+
+
+        //
+        // Flechas
+        //
+
+        &__nav {
+            min-width: 28px;
+            width: 28px;
+            height: 28px;
+
+            font-size: 21px;
+        }
+
+
+        //
+        // Texto
+        //
+
+        &__message-area &__text {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+
+            margin: 0 !important;
+
+            font-size: 12px;
+            line-height: 1.25;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+
+        //
+        // Actions
+        //
+
+        &__actions {
+            gap: 8px;
+
+            .leanzote-banner__button {
+                padding: 5px 14px;
+
+                font-size: 11px;
+            }
+
+            .leanzote-banner__counter {
+                padding: 4px 8px;
+            }
+        }
+
+
+        //
+        // Close
+        //
+
+        &__close {
+            top: 50%;
+            right: 5px;
+
+            transform: translateY(-50%);
+
+            width: 28px;
+            height: 28px;
+
+            font-size: 16px;
+        }
+    }
+
+
+    //
+    // Counter
+    //
+
+    .leanzote-counter {
+        &__numbers {
+            gap: 3px;
+
+            font-size: 12px;
+        }
+
+        &__unit {
+            font-size: 6px;
+
+            letter-spacing: .3px;
+        }
+    }
+}
