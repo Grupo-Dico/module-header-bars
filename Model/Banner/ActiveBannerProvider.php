@@ -131,7 +131,7 @@ class ActiveBannerProvider
             'id' => (int) $banner->getId(),
             // `content` se conserva para compatibilidad con implementaciones anteriores.
             'content' => (string) $banner->getRichTextContent(),
-            'messages' => $this->buildMessages($banner),
+            'messages' => $this->buildMessages($banner, $storeId),
             'carousel_interval' => max(2, min(60, (int) ($banner->getData('carousel_interval') ?: 5))),
             'start_date' => $this->formatUtcDate($banner->getStartDate()),
             'end_date' => $this->formatUtcDate($banner->getEndDate()),
@@ -166,25 +166,23 @@ class ActiveBannerProvider
      * @param \LeanCommerce\LeanZote\Model\Banner $banner
      * @return array
      */
-    private function buildMessages($banner)
+    private function buildMessages($banner, $storeId)
     {
         $rows = [
-            [(string) $banner->getRichTextContent(), (string) $banner->getMobileTextContent()],
-            [(string) $banner->getData('desktop_text_content_2'), (string) $banner->getData('mobile_text_content_2')],
-            [(string) $banner->getData('desktop_text_content_3'), (string) $banner->getData('mobile_text_content_3')],
+            1 => [(string) $banner->getRichTextContent(), (string) $banner->getMobileTextContent()],
+            2 => [(string) $banner->getData('desktop_text_content_2'), (string) $banner->getData('mobile_text_content_2')],
+            3 => [(string) $banner->getData('desktop_text_content_3'), (string) $banner->getData('mobile_text_content_3')],
         ];
         $messages = [];
 
-        foreach ($rows as $row) {
+        foreach ($rows as $index => $row) {
             $desktop = trim($row[0]);
             $mobile = trim($row[1]);
 
-            // Un slide existe cuando al menos uno de sus copies fue capturado.
             if ($desktop === '' && $mobile === '') {
                 continue;
             }
 
-            // Fallback bidireccional para evitar slides vacíos en un dispositivo.
             if ($desktop === '') {
                 $desktop = $mobile;
             }
@@ -192,9 +190,51 @@ class ActiveBannerProvider
                 $mobile = $desktop;
             }
 
+            $desktopButtonText = trim((string) $banner->getData('desktop_button_text_' . $index));
+            $desktopButtonLink = $this->sanitizeUrl($banner->getData('desktop_button_link_' . $index), $storeId);
+            $mobileButtonText = trim((string) $banner->getData('mobile_button_text_' . $index));
+            $mobileButtonLink = $this->sanitizeUrl($banner->getData('mobile_button_link_' . $index), $storeId);
+
+            // CTA general/fallback:
+            // - Si está habilitado, sirve como valor por defecto para CADA slide.
+            // - Cada slide/dispositivo puede sobrescribir texto y URL de forma independiente.
+            // - Esto permite, por ejemplo, escribir un CTA específico pero heredar la URL general,
+            //   o dejar ambos vacíos para reutilizar por completo el CTA general.
+            if ($banner->getButtonEnabled()) {
+                $legacyText = trim((string) $banner->getButtonText());
+                $legacyLink = $this->sanitizeUrl($banner->getButtonLink(), $storeId);
+
+                if ($desktopButtonText === '') {
+                    $desktopButtonText = $legacyText;
+                }
+                if ($desktopButtonLink === '') {
+                    $desktopButtonLink = $legacyLink;
+                }
+                if ($mobileButtonText === '') {
+                    $mobileButtonText = $legacyText;
+                }
+                if ($mobileButtonLink === '') {
+                    $mobileButtonLink = $legacyLink;
+                }
+            }
+
             $messages[] = [
-                'desktop' => $desktop,
-                'mobile' => $mobile,
+                'desktop' => [
+                    'text' => $desktop,
+                    'highlight' => trim((string) $banner->getData('desktop_highlight_' . $index)),
+                    'button' => [
+                        'text' => $desktopButtonText,
+                        'link' => $desktopButtonLink,
+                    ],
+                ],
+                'mobile' => [
+                    'text' => $mobile,
+                    'highlight' => trim((string) $banner->getData('mobile_highlight_' . $index)),
+                    'button' => [
+                        'text' => $mobileButtonText,
+                        'link' => $mobileButtonLink,
+                    ],
+                ],
             ];
         }
 

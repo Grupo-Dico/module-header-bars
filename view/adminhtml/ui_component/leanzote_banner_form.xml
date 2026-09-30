@@ -162,31 +162,69 @@
     <fieldset name="main_message">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">3. Mensajes promocionales (Desktop / Mobile)</item>
+                <item name="label" xsi:type="string" translate="true">3. Mensajes, beneficios y CTA por dispositivo</item>
                 <item name="collapsible" xsi:type="boolean">true</item>
                 <item name="opened" xsi:type="boolean">true</item>
                 <item name="sortOrder" xsi:type="number">30</item>
+                <item name="notice" xsi:type="string" translate="true">Cada mensaje puede tener copy, beneficio destacado y botón/URL independientes para Desktop y Mobile.</item>
             </item>
         </argument>
-
         <field name="rich_text_content">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 1 - Desktop</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 1 - Desktop *</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">rich_text_content</item>
                     <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="rows" xsi:type="number">2</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
-                    <item name="rows" xsi:type="number">3</item>
-                    <item name="notice" xsi:type="string" translate="true">Copy principal para Desktop. Este campo conserva el contenido de los banners existentes.</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy del slide 1 para Desktop.</item>
                 </item>
             </argument>
         </field>
-
+        <field name="desktop_highlight_1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 1 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_highlight_1</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="desktop_button_text_1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CTA 1 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_button_text_1</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="desktop_button_link_1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL CTA 1 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_button_link_1</item>
+                    <item name="sortOrder" xsi:type="number">31</item>
+                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
+                </item>
+            </argument>
+        </field>
         <field name="mobile_text_content">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -195,73 +233,263 @@
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">mobile_text_content</item>
-                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
                     <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Copy corto para Mobile. Si se deja vacío, se utilizará el texto de Desktop.</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy del slide 1 para Mobile. Si se deja vacío, usa el copy Desktop.</item>
                 </item>
             </argument>
         </field>
-
+        <field name="mobile_highlight_1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 1 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_highlight_1</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="mobile_button_text_1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CTA 1 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_button_text_1</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="mobile_button_link_1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL CTA 1 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_button_link_1</item>
+                    <item name="sortOrder" xsi:type="number">71</item>
+                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
+                </item>
+            </argument>
+        </field>
         <field name="desktop_text_content_2">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Desktop (opcional)</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Desktop</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">desktop_text_content_2</item>
-                    <item name="sortOrder" xsi:type="number">30</item>
-                    <item name="rows" xsi:type="number">3</item>
-                    <item name="notice" xsi:type="string" translate="true">Segundo mensaje del carrusel para Desktop.</item>
+                    <item name="sortOrder" xsi:type="number">90</item>
+                    <item name="rows" xsi:type="number">2</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy del slide 2 para Desktop.</item>
                 </item>
             </argument>
         </field>
-
+        <field name="desktop_highlight_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 2 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_highlight_2</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="desktop_button_text_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CTA 2 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_button_text_2</item>
+                    <item name="sortOrder" xsi:type="number">110</item>
+                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="desktop_button_link_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL CTA 2 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_button_link_2</item>
+                    <item name="sortOrder" xsi:type="number">111</item>
+                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
+                </item>
+            </argument>
+        </field>
         <field name="mobile_text_content_2">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Mobile (opcional)</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Mobile</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">mobile_text_content_2</item>
-                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="sortOrder" xsi:type="number">130</item>
                     <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Segundo mensaje del carrusel para Mobile. Si está vacío, usa el Mensaje 2 de Desktop.</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy del slide 2 para Mobile. Si se deja vacío, usa el copy Desktop.</item>
                 </item>
             </argument>
         </field>
-
+        <field name="mobile_highlight_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 2 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_highlight_2</item>
+                    <item name="sortOrder" xsi:type="number">140</item>
+                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="mobile_button_text_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CTA 2 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_button_text_2</item>
+                    <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="mobile_button_link_2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL CTA 2 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_button_link_2</item>
+                    <item name="sortOrder" xsi:type="number">151</item>
+                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
+                </item>
+            </argument>
+        </field>
         <field name="desktop_text_content_3">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Desktop (opcional)</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Desktop</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">desktop_text_content_3</item>
-                    <item name="sortOrder" xsi:type="number">50</item>
-                    <item name="rows" xsi:type="number">3</item>
-                    <item name="notice" xsi:type="string" translate="true">Tercer mensaje del carrusel para Desktop.</item>
+                    <item name="sortOrder" xsi:type="number">170</item>
+                    <item name="rows" xsi:type="number">2</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy del slide 3 para Desktop.</item>
                 </item>
             </argument>
         </field>
-
+        <field name="desktop_highlight_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 3 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_highlight_3</item>
+                    <item name="sortOrder" xsi:type="number">180</item>
+                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="desktop_button_text_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CTA 3 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_button_text_3</item>
+                    <item name="sortOrder" xsi:type="number">190</item>
+                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="desktop_button_link_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL CTA 3 - Desktop</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">desktop_button_link_3</item>
+                    <item name="sortOrder" xsi:type="number">191</item>
+                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
+                </item>
+            </argument>
+        </field>
         <field name="mobile_text_content_3">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Mobile (opcional)</item>
+                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Mobile</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">mobile_text_content_3</item>
-                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="sortOrder" xsi:type="number">210</item>
                     <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Tercer mensaje del carrusel para Mobile. Si está vacío, usa el Mensaje 3 de Desktop.</item>
+                    <item name="notice" xsi:type="string" translate="true">Copy del slide 3 para Mobile. Si se deja vacío, usa el copy Desktop.</item>
                 </item>
             </argument>
         </field>
-
+        <field name="mobile_highlight_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 3 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_highlight_3</item>
+                    <item name="sortOrder" xsi:type="number">220</item>
+                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="mobile_button_text_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CTA 3 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_button_text_3</item>
+                    <item name="sortOrder" xsi:type="number">230</item>
+                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="mobile_button_link_3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL CTA 3 - Mobile</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="dataScope" xsi:type="string">mobile_button_link_3</item>
+                    <item name="sortOrder" xsi:type="number">231</item>
+                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
+                </item>
+            </argument>
+        </field>
         <field name="carousel_interval">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -270,13 +498,13 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">carousel_interval</item>
-                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="sortOrder" xsi:type="number">250</item>
                     <item name="default" xsi:type="number">5</item>
                     <item name="validation" xsi:type="array">
                         <item name="validate-number" xsi:type="boolean">true</item>
                         <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
                     </item>
-                    <item name="notice" xsi:type="string" translate="true">Indica cada cuántos segundos cambiará el mensaje. Valores permitidos: 2 a 60 segundos. Valor recomendado: 5.</item>
+                    <item name="notice" xsi:type="string" translate="true">Valores permitidos: 2 a 60 segundos. Recomendado: 5.</item>
                 </item>
             </argument>
         </field>
@@ -285,76 +513,34 @@
     <fieldset name="call_to_action">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">4. Botón de acción</item>
+                <item name="label" xsi:type="string" translate="true">4. CTA general / fallback</item>
                 <item name="collapsible" xsi:type="boolean">true</item>
                 <item name="opened" xsi:type="boolean">false</item>
                 <item name="sortOrder" xsi:type="number">40</item>
+                <item name="notice" xsi:type="string" translate="true">Opcional. Si está activo, este CTA se usa como valor por defecto en los mensajes que no tengan texto o URL propios. Los CTA de cada mensaje Desktop/Mobile tienen prioridad.</item>
             </item>
         </argument>
         <field name="button_enabled">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">boolean</item>
-                    <item name="label" xsi:type="string" translate="true">Agregar botón al banner</item>
-                    <item name="formElement" xsi:type="string">checkbox</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">button_enabled</item>
-                    <item name="prefer" xsi:type="string">toggle</item>
-                    <item name="sortOrder" xsi:type="number">10</item>
-                    <item name="valueMap" xsi:type="array">
-                        <item name="true" xsi:type="number">1</item>
-                        <item name="false" xsi:type="number">0</item>
-                    </item>
-                    <item name="default" xsi:type="number">0</item>
-                    <item name="notice" xsi:type="string" translate="true">Actívalo cuando el banner deba llevar al usuario a una promoción, categoría o landing.</item>
-                </item>
-            </argument>
+            <argument name="data" xsi:type="array"><item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">boolean</item><item name="label" xsi:type="string" translate="true">Usar CTA general como fallback</item>
+                <item name="formElement" xsi:type="string">checkbox</item><item name="source" xsi:type="string">banner</item><item name="dataScope" xsi:type="string">button_enabled</item>
+                <item name="prefer" xsi:type="string">toggle</item><item name="sortOrder" xsi:type="number">10</item>
+                <item name="valueMap" xsi:type="array"><item name="true" xsi:type="number">1</item><item name="false" xsi:type="number">0</item></item>
+            </item></argument>
         </field>
-        <field name="button_text">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Texto del botón</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">button_text</item>
-                    <item name="sortOrder" xsi:type="number">20</item>
-                    <item name="notice" xsi:type="string" translate="true">Ejemplos: Comprar ahora, Ver promoción, Conocer más.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="button_link">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">URL de destino del botón</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">button_link</item>
-                    <item name="sortOrder" xsi:type="number">30</item>
-                    <item name="notice" xsi:type="string" translate="true">Usa una ruta interna como /promociones o una URL completa con https://.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="button_before">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">boolean</item>
-                    <item name="label" xsi:type="string" translate="true">Mostrar botón antes del contador</item>
-                    <item name="formElement" xsi:type="string">checkbox</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">button_before</item>
-                    <item name="prefer" xsi:type="string">toggle</item>
-                    <item name="sortOrder" xsi:type="number">40</item>
-                    <item name="valueMap" xsi:type="array">
-                        <item name="true" xsi:type="number">1</item>
-                        <item name="false" xsi:type="number">0</item>
-                    </item>
-                    <item name="default" xsi:type="number">0</item>
-                    <item name="notice" xsi:type="string" translate="true">Apagado: el botón aparece después del contador. Encendido: aparece antes del contador.</item>
-                </item>
-            </argument>
-        </field>
+        <field name="button_text"><argument name="data" xsi:type="array"><item name="config" xsi:type="array">
+            <item name="dataType" xsi:type="string">text</item><item name="label" xsi:type="string" translate="true">Texto CTA general</item><item name="formElement" xsi:type="string">input</item>
+            <item name="source" xsi:type="string">banner</item><item name="dataScope" xsi:type="string">button_text</item><item name="sortOrder" xsi:type="number">20</item>
+        </item></argument></field>
+        <field name="button_link"><argument name="data" xsi:type="array"><item name="config" xsi:type="array">
+            <item name="dataType" xsi:type="string">text</item><item name="label" xsi:type="string" translate="true">URL CTA general</item><item name="formElement" xsi:type="string">input</item>
+            <item name="source" xsi:type="string">banner</item><item name="dataScope" xsi:type="string">button_link</item><item name="sortOrder" xsi:type="number">30</item>
+        </item></argument></field>
+        <field name="button_before"><argument name="data" xsi:type="array"><item name="config" xsi:type="array">
+            <item name="dataType" xsi:type="string">boolean</item><item name="label" xsi:type="string" translate="true">Mostrar CTA general antes del contador</item><item name="formElement" xsi:type="string">checkbox</item>
+            <item name="source" xsi:type="string">banner</item><item name="dataScope" xsi:type="string">button_before</item><item name="prefer" xsi:type="string">toggle</item><item name="sortOrder" xsi:type="number">40</item>
+            <item name="valueMap" xsi:type="array"><item name="true" xsi:type="number">1</item><item name="false" xsi:type="number">0</item></item>
+        </item></argument></field>
     </fieldset>
 
     <fieldset name="countdown">

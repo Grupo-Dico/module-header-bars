@@ -31,6 +31,24 @@ class Save extends Action
         'desktop_text_content_3',
         'mobile_text_content_3',
         'carousel_interval',
+        'desktop_highlight_1',
+        'desktop_button_text_1',
+        'desktop_button_link_1',
+        'mobile_highlight_1',
+        'mobile_button_text_1',
+        'mobile_button_link_1',
+        'desktop_highlight_2',
+        'desktop_button_text_2',
+        'desktop_button_link_2',
+        'mobile_highlight_2',
+        'mobile_button_text_2',
+        'mobile_button_link_2',
+        'desktop_highlight_3',
+        'desktop_button_text_3',
+        'desktop_button_link_3',
+        'mobile_highlight_3',
+        'mobile_button_text_3',
+        'mobile_button_link_3',
         'button_text',
         'button_link',
         'start_date',
@@ -132,7 +150,10 @@ class Save extends Action
             return $resultRedirect->setPath('*/*/');
         }
 
-        $formData = $data['data'] ?? $data;
+        // Magento UI forms may submit values at the root, under `data`, or
+        // grouped by the field `source` (for this form: `banner`).  Extract the
+        // whitelisted fields recursively so new fields are not silently lost.
+        $formData = $this->extractFormData($data);
         $id = $this->getRequest()->getParam('banner_id')
             ?? $this->getRequest()->getParam('id')
             ?? $formData['banner_id']
@@ -229,6 +250,40 @@ class Save extends Action
             $this->messageManager->addErrorMessage($e->getMessage());
             return $resultRedirect->setPath('*/*/edit', ['banner_id' => $id]);
         }
+    }
+
+    /**
+     * Normalize Magento UI Component POST payload.
+     *
+     * Depending on the UI provider/source configuration, fields can arrive as:
+     * - field => value
+     * - data[field] => value
+     * - data[banner][field] => value
+     * - banner[field] => value
+     *
+     * @param array $data
+     * @return array
+     */
+    private function extractFormData(array $data)
+    {
+        $result = [];
+        $allowed = array_flip(array_merge(self::ALLOWED_FIELDS, ['banner_id', 'id']));
+
+        $walk = function (array $node) use (&$walk, &$result, $allowed) {
+            foreach ($node as $key => $value) {
+                if (isset($allowed[$key])) {
+                    $result[$key] = $value;
+                }
+
+                if (is_array($value)) {
+                    $walk($value);
+                }
+            }
+        };
+
+        $walk($data);
+
+        return $result;
     }
 
     /**

@@ -192,23 +192,68 @@ define(['jquery'], function ($) {
             return messages.slice(0, 3);
         }
 
-        function getMessageText(message) {
+        function getMessageVariant(message) {
             var mobile = window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
-            return mobile ? firstValue(message.mobile, message.desktop) : firstValue(message.desktop, message.mobile);
+            var preferred = mobile ? message.mobile : message.desktop;
+            var fallback = mobile ? message.desktop : message.mobile;
+
+            // Compatibilidad con payload 1.0.6 (desktop/mobile como strings).
+            if (typeof preferred === 'string') {
+                return {text: preferred || (typeof fallback === 'string' ? fallback : ''), highlight: '', button: {}};
+            }
+            if (!preferred || typeof preferred !== 'object') {
+                preferred = fallback && typeof fallback === 'object' ? fallback : {};
+            }
+
+            return {
+                text: firstValue(preferred.text, fallback && fallback.text, ''),
+                highlight: firstValue(preferred.highlight, ''),
+                button: preferred.button || {}
+            };
+        }
+
+        function renderSlide($banner, index, animate) {
+            var messages = $banner.data('messages') || [];
+            var total = messages.length;
+            var safeIndex, variant, $body, $copy, $highlight, $button;
+            var buttonBackground = firstValue($banner.data('button-background-color'), '#000000');
+            var buttonTextColor = firstValue($banner.data('button-text-color'), '#FFFFFF');
+
+            if (!total) { return; }
+            safeIndex = ((index % total) + total) % total;
+            variant = getMessageVariant(messages[safeIndex]);
+            $banner.data('slide-index', safeIndex);
+
+            $body = $banner.find('.leanzote-banner__message-body');
+            $copy = $body.find('.leanzote-banner__copy');
+            $highlight = $body.find('.leanzote-banner__highlight');
+            $button = $body.find('.leanzote-banner__slide-button');
+
+            function applyContent() {
+                $copy.text(variant.text || '');
+                $highlight.text(variant.highlight || '').toggle(!!variant.highlight);
+
+                if (variant.button && variant.button.text && variant.button.link) {
+                    $button.attr('href', variant.button.link).text(variant.button.text).show();
+                    applyColors($button, buttonBackground, buttonTextColor);
+                } else {
+                    $button.removeAttr('href').text('').hide();
+                }
+                checkBannerVisibility();
+            }
+
+            if (animate) {
+                $body.stop(true, true).fadeOut(100, function () {
+                    applyContent();
+                    $body.fadeIn(140);
+                });
+            } else {
+                applyContent();
+            }
         }
 
         function updateSlide($banner, index) {
-            var messages = $banner.data('messages') || [];
-            var total = messages.length;
-            var safeIndex;
-            if (!total) { return; }
-            safeIndex = ((index % total) + total) % total;
-            $banner.data('slide-index', safeIndex);
-            $banner.find('.leanzote-banner__text').stop(true, true).fadeOut(120, function () {
-                $(this).text(getMessageText(messages[safeIndex])).fadeIn(180, function () {
-                    checkBannerVisibility();
-                });
-            });
+            renderSlide($banner, index, true);
         }
 
         function startCarousel($banner) {
@@ -229,12 +274,16 @@ define(['jquery'], function ($) {
         function buildMessageArea(banner) {
             var messages = getMessages(banner);
             var $area = $('<div/>', {'class': 'leanzote-banner__message-area'});
-            var $text = $('<span/>', {'class': 'leanzote-banner__text'});
+            var $body = $('<div/>', {'class': 'leanzote-banner__message-body'});
+            var $copyGroup = $('<span/>', {'class': 'leanzote-banner__copy-group'});
+            var $copy = $('<span/>', {'class': 'leanzote-banner__copy'});
+            var $highlight = $('<strong/>', {'class': 'leanzote-banner__highlight'}).hide();
+            var $button = $('<a/>', {'class': 'leanzote-banner__slide-button'}).hide();
             var $previous, $next;
 
-            if (messages.length) {
-                $text.text(getMessageText(messages[0]));
-            }
+            $copyGroup.append($copy).append($highlight);
+            $body.append($copyGroup).append($button);
+
             if (messages.length > 1) {
                 $previous = $('<button/>', {
                     type: 'button',
@@ -250,30 +299,26 @@ define(['jquery'], function ($) {
                 });
                 $area.append($previous);
             }
-            $area.append($text);
+            $area.append($body);
             if (messages.length > 1) { $area.append($next); }
             return $area;
         }
 
         function buildBanner(banner, index) {
             var bannerId = parseInt(banner.id, 10);
-            var buttonBefore = !!(banner.button && banner.button.before_counter);
             var backgroundColor = firstValue(banner.background_color, '#FFFFFF');
             var textColor = firstValue(banner.text_color, '#333333');
+            var button = banner.button || {};
+            var buttonBackgroundColor = firstValue(button.background_color, banner.button_color_background, '#000000');
+            var buttonTextColor = firstValue(button.text_color, banner.button_color_text, '#FFFFFF');
             var messages = getMessages(banner);
             var $content = $('<div/>', {'class': 'leanzote-banner__content'});
             var $actions = $('<div/>', {'class': 'leanzote-banner__actions'});
-            var $button = buildButton(banner);
             var $counter = buildCounter(banner);
             var $bannerElement, $closeButton;
 
-            if (buttonBefore) { $actions.addClass('button-before'); }
             $content.append(buildMessageArea(banner));
-            if (buttonBefore) {
-                $actions.append($button).append($counter);
-            } else {
-                $actions.append($counter).append($button);
-            }
+            $actions.append($counter);
             $content.append($actions);
 
             $bannerElement = $('<div/>', {
@@ -284,7 +329,9 @@ define(['jquery'], function ($) {
                 'end-date': banner.end_date || null,
                 'messages': messages,
                 'slide-index': 0,
-                'carousel-interval': parseInt(banner.carousel_interval, 10) || 5
+                'carousel-interval': parseInt(banner.carousel_interval, 10) || 5,
+                'button-background-color': buttonBackgroundColor,
+                'button-text-color': buttonTextColor
             });
 
             $closeButton = $('<button/>', {
@@ -297,10 +344,14 @@ define(['jquery'], function ($) {
 
             applyColors($bannerElement, backgroundColor, textColor);
             setStyle($content, 'color', textColor, true);
-            setStyle($content.find('.leanzote-banner__text'), 'color', textColor, true);
+            setStyle($content.find('.leanzote-banner__copy'), 'color', textColor, true);
+            setStyle($content.find('.leanzote-banner__highlight'), 'color', textColor, true);
             setStyle($content.find('.leanzote-banner__nav'), 'color', textColor, true);
             setStyle($closeButton, 'color', textColor, true);
-            return $bannerElement.append($content).append($closeButton);
+
+            $bannerElement.append($content).append($closeButton);
+            renderSlide($bannerElement, 0, false);
+            return $bannerElement;
         }
 
         function setCounterVisible($counter, visible) {
@@ -390,7 +441,7 @@ define(['jquery'], function ($) {
                 var messages = $banner.data('messages') || [];
                 var index = parseInt($banner.data('slide-index'), 10) || 0;
                 if (messages[index]) {
-                    $banner.find('.leanzote-banner__text').text(getMessageText(messages[index]));
+                    renderSlide($banner, index, false);
                 }
             });
             checkBannerVisibility();

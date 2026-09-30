@@ -134,6 +134,114 @@ class UpgradeSchema implements UpgradeSchemaInterface
             ]);
         }
 
+        // 1.0.8 repairs the 1.0.7 schema migration. In 1.0.7 these columns
+        // were accidentally placed inside the "table does not exist" branch, so
+        // existing installations could reach schema_version 1.0.7 without them.
+        if (version_compare($context->getVersion(), '1.0.8', '<')) {
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_highlight_1', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Desktop Highlight 1',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_button_text_1', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 255,
+                'nullable' => true,
+                'comment' => 'Desktop Button Text 1',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_button_link_1', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 1024,
+                'nullable' => true,
+                'comment' => 'Desktop Button Link 1',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_highlight_1', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Mobile Highlight 1',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_button_text_1', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 255,
+                'nullable' => true,
+                'comment' => 'Mobile Button Text 1',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_button_link_1', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 1024,
+                'nullable' => true,
+                'comment' => 'Mobile Button Link 1',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_highlight_2', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Desktop Highlight 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_button_text_2', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 255,
+                'nullable' => true,
+                'comment' => 'Desktop Button Text 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_button_link_2', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 1024,
+                'nullable' => true,
+                'comment' => 'Desktop Button Link 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_highlight_2', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Mobile Highlight 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_button_text_2', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 255,
+                'nullable' => true,
+                'comment' => 'Mobile Button Text 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_button_link_2', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 1024,
+                'nullable' => true,
+                'comment' => 'Mobile Button Link 2',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_highlight_3', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Desktop Highlight 3',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_button_text_3', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 255,
+                'nullable' => true,
+                'comment' => 'Desktop Button Text 3',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'desktop_button_link_3', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 1024,
+                'nullable' => true,
+                'comment' => 'Desktop Button Link 3',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_highlight_3', [
+                'type' => Table::TYPE_TEXT,
+                'nullable' => true,
+                'comment' => 'Mobile Highlight 3',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_button_text_3', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 255,
+                'nullable' => true,
+                'comment' => 'Mobile Button Text 3',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'mobile_button_link_3', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 1024,
+                'nullable' => true,
+                'comment' => 'Mobile Button Link 3',
+            ]);
+        }
+
         $setup->endSetup();
     }
 
