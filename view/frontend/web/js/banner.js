@@ -230,7 +230,8 @@ define(['jquery'], function ($) {
             $button = $body.find('.leanzote-banner__slide-button');
 
             function applyContent() {
-                $copy.text(variant.text || '');
+                $copy.text(variant.text || '').toggle(!!variant.text);
+                $copy.parent().toggle(!!(variant.text || variant.highlight));
                 $highlight.text(variant.highlight || '').toggle(!!variant.highlight);
 
                 if (variant.button && variant.button.text && variant.button.link) {
@@ -313,13 +314,16 @@ define(['jquery'], function ($) {
             var buttonTextColor = firstValue(button.text_color, banner.button_color_text, '#FFFFFF');
             var messages = getMessages(banner);
             var $content = $('<div/>', {'class': 'leanzote-banner__content'});
-            var $actions = $('<div/>', {'class': 'leanzote-banner__actions'});
             var $counter = buildCounter(banner);
             var $bannerElement, $closeButton;
 
+            // Mensaje, contador y CTA comparten una misma fila centrada (sin columnas laterales).
             $content.append(buildMessageArea(banner));
-            $actions.append($counter);
-            $content.append($actions);
+            if (button.before_counter) {
+                $content.find('.leanzote-banner__slide-button').after($counter);
+            } else {
+                $content.find('.leanzote-banner__slide-button').before($counter);
+            }
 
             $bannerElement = $('<div/>', {
                 id: 'leanzote-banner-' + bannerId,

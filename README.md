@@ -178,6 +178,8 @@ Reglas importantes:
 - Los banners asignados especificamente al store actual tienen prioridad visual sobre banners de **All Store Views**.
 - En empate de prioridad, el banner con `banner_id` mas alto aparece primero.
 - En mobile, multiples banners se apilan calculando la altura real de cada barra.
+- Mensaje, beneficio destacado, contador y CTA se centran en una sola fila. Si falta alguno (texto, botón o contador), el resto se recentra sin dejar huecos. En mobile, si no caben en una línea, el CTA baja centrado y el copy se ajusta en vez de cortarse con "...".
+- La barra es más compacta (menos alto, flechas y botón de cerrar más pequeños).
 - La barra ajusta variables CSS para no tapar el header fijo.
 - El boton de cerrar se muestra y funciona en mobile.
 - El contador se renderiza solo si esta dentro de su propio rango vigente.

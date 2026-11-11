@@ -27,9 +27,9 @@ body.leanzote-banner-visible {
     z-index: 9999;
     display: none;
     width: 100%;
-    min-height: 42px;
+    min-height: 34px;
     box-sizing: border-box;
-    padding: 5px 48px;
+    padding: 4px 44px;
     font-family: 'Montserrat', Arial, sans-serif;
     font-size: 14px;
     line-height: 1.2;
@@ -42,23 +42,23 @@ body.leanzote-banner-visible {
         justify-content: center;
         width: 100%;
         max-width: 1440px;
-        min-height: 32px;
+        min-height: 26px;
         margin: 0 auto;
-        gap: 12px;
+        gap: 0;
         text-align: center;
     }
 
     // < [copy + beneficio + CTA] >
     &__message-area {
         display: grid;
-        grid-template-columns: 32px minmax(0, 1fr) 32px;
+        grid-template-columns: 22px minmax(0, 1fr) 22px;
         grid-template-areas: "previous message next";
         align-items: center;
         width: 100%;
         max-width: 1380px;
         min-width: 0;
         margin: 0 auto;
-        column-gap: 18px;
+        column-gap: 12px;
         flex: 1 1 auto;
     }
 
@@ -67,35 +67,37 @@ body.leanzote-banner-visible {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
         min-width: 0;
-        gap: 14px;
+        gap: 4px 14px;
+        text-align: center;
     }
 
+    // Copy + beneficio en línea; si el texto es largo se ajusta centrado en vez de cortarse.
     &__copy-group {
-        display: inline-flex;
-        align-items: baseline;
-        justify-content: center;
+        display: inline;
+        max-width: 100%;
         min-width: 0;
-        gap: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: normal;
+        text-align: center;
     }
 
     &__copy {
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        white-space: normal;
         font-family: 'Montserrat', Arial, sans-serif;
         font-weight: 400;
     }
 
     &__highlight {
-        flex: 0 0 auto;
+        margin-left: 4px;
         font-family: 'Montserrat', Arial, sans-serif;
         font-weight: 700;
         white-space: nowrap;
+    }
+
+    // Sin copy normal, el beneficio no debe dejar sangría a la izquierda.
+    &__copy:empty + &__highlight {
+        margin-left: 0;
     }
 
     &__slide-button {
@@ -129,19 +131,19 @@ body.leanzote-banner-visible {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        min-width: 32px;
-        height: 32px;
+        width: 22px;
+        min-width: 22px;
+        height: 22px;
         padding: 0;
         margin: 0;
         border: 0;
         background: transparent;
         box-shadow: none;
-        font-size: 18px;
+        font-size: 12px;
         font-weight: 400;
         line-height: 1;
         cursor: pointer;
-        opacity: .8;
+        opacity: .55;
 
         &:hover,
         &:focus,
@@ -165,18 +167,13 @@ body.leanzote-banner-visible {
 
     // Si no hay carrusel, el cuerpo ocupa toda el área.
     &__message-area > &__message-body:first-child:last-child {
-        grid-column: 1 / -1;
+        // grid-area primero: si va después, el shorthand anula grid-column.
         grid-area: auto;
-    }
-
-    &__actions {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 0 0 auto;
+        grid-column: 1 / -1;
     }
 
     &__counter {
+        flex: 0 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -194,13 +191,13 @@ body.leanzote-banner-visible {
     &__close {
         position: absolute;
         top: 50%;
-        right: 18px;
+        right: 16px;
         transform: translateY(-50%);
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 22px;
-        height: 22px;
+        width: 16px;
+        height: 16px;
         padding: 0;
         border: 0;
         border-radius: 0;
@@ -303,31 +300,36 @@ body.leanzote-banner-visible {
         }
 
         &__message-body {
-            flex-direction: column;
+            flex-direction: row;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             width: 100%;
             min-width: 0;
-            gap: 3px;
+            gap: 4px 8px;
         }
 
+        // El copy puede ocupar hasta 2 líneas centradas; nunca se corta con "...".
         &__copy-group {
-            width: 100%;
+            display: inline;
+            max-width: 100%;
             min-width: 0;
-            justify-content: center;
-            gap: 3px;
-            overflow: hidden;
-            white-space: nowrap;
+            overflow: visible;
+            white-space: normal;
+            text-align: center;
         }
 
         &__copy {
-            min-width: 0;
+            display: inline;
             max-width: 100%;
             font-size: 12px;
-            line-height: 1.15;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            line-height: 1.25;
+            overflow: visible;
+            white-space: normal;
+        }
+
+        &__highlight {
+            margin-left: 3px;
         }
 
         &__highlight {
@@ -349,12 +351,6 @@ body.leanzote-banner-visible {
             height: 28px;
             font-size: 15px;
             opacity: .75;
-        }
-
-        &__actions {
-            // El contador se conserva compacto y solo ocupa espacio cuando está activo.
-            flex: 0 0 auto;
-            margin-left: 4px;
         }
 
         &__counter {
