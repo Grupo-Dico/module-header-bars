@@ -156,7 +156,7 @@ define(['jquery'], function ($) {
             var backgroundColor = firstValue(counter.background_color, banner.counter_bg_color, '#000000');
             var textColor = firstValue(counter.text_color, banner.counter_color_text, '#FFFFFF');
             var $counter, $numbers;
-            var units = [['days', 'Dias'], ['hours', 'HRS'], ['minutes', 'MIN'], ['seconds', 'SECS']];
+            var units = [['hours', 'HRS'], ['minutes', 'MIN'], ['seconds', 'SEGS']];
 
             if (!isCounterActive(counter)) { return $(); }
 
@@ -171,7 +171,7 @@ define(['jquery'], function ($) {
             $numbers = $('<div/>', {'class': 'leanzote-counter__numbers'});
             $.each(units, function (index, unit) {
                 if (index > 0) {
-                    $numbers.append($('<span/>', {'class': 'leanzote-counter__separator', text: '|'}));
+                    $numbers.append($('<span/>', {'class': 'leanzote-counter__separator', text: ':'}));
                 }
                 $numbers.append(
                     $('<div/>', {'class': 'leanzote-counter__time-block'})
@@ -273,35 +273,17 @@ define(['jquery'], function ($) {
         }
 
         function buildMessageArea(banner) {
-            var messages = getMessages(banner);
             var $area = $('<div/>', {'class': 'leanzote-banner__message-area'});
             var $body = $('<div/>', {'class': 'leanzote-banner__message-body'});
             var $copyGroup = $('<span/>', {'class': 'leanzote-banner__copy-group'});
             var $copy = $('<span/>', {'class': 'leanzote-banner__copy'});
             var $highlight = $('<strong/>', {'class': 'leanzote-banner__highlight'}).hide();
             var $button = $('<a/>', {'class': 'leanzote-banner__slide-button'}).hide();
-            var $previous, $next;
 
             $copyGroup.append($copy).append($highlight);
             $body.append($copyGroup).append($button);
 
-            if (messages.length > 1) {
-                $previous = $('<button/>', {
-                    type: 'button',
-                    'class': 'leanzote-banner__nav leanzote-banner__nav--prev',
-                    'aria-label': 'Mensaje anterior',
-                    html: '&#10094;'
-                });
-                $next = $('<button/>', {
-                    type: 'button',
-                    'class': 'leanzote-banner__nav leanzote-banner__nav--next',
-                    'aria-label': 'Mensaje siguiente',
-                    html: '&#10095;'
-                });
-                $area.append($previous);
-            }
             $area.append($body);
-            if (messages.length > 1) { $area.append($next); }
             return $area;
         }
 
@@ -350,7 +332,6 @@ define(['jquery'], function ($) {
             setStyle($content, 'color', textColor, true);
             setStyle($content.find('.leanzote-banner__copy'), 'color', textColor, true);
             setStyle($content.find('.leanzote-banner__highlight'), 'color', textColor, true);
-            setStyle($content.find('.leanzote-banner__nav'), 'color', textColor, true);
             setStyle($closeButton, 'color', textColor, true);
 
             $bannerElement.append($content).append($closeButton);
@@ -371,8 +352,8 @@ define(['jquery'], function ($) {
             if (!endDate || now >= endDate) { setCounterVisible($counter, false); return; }
             diff = endDate - now;
             setCounterVisible($counter, true);
-            $counter.find('.leanzote-counter__days').text(String(Math.floor(diff / 86400000)).padStart(2, '0'));
-            $counter.find('.leanzote-counter__hours').text(String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0'));
+            // Sin escala de días: las horas acumulan el total restante.
+            $counter.find('.leanzote-counter__hours').text(String(Math.floor(diff / 3600000)).padStart(2, '0'));
             $counter.find('.leanzote-counter__minutes').text(String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'));
             $counter.find('.leanzote-counter__seconds').text(String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'));
         }
@@ -410,14 +391,6 @@ define(['jquery'], function ($) {
             clearTicker();
             tickerId = window.setInterval(tick, 1000);
         }
-
-        $root.on('click', '.leanzote-banner__nav', function () {
-            var $banner = $(this).closest('.leanzote-banner');
-            var current = parseInt($banner.data('slide-index'), 10) || 0;
-            var direction = $(this).hasClass('leanzote-banner__nav--prev') ? -1 : 1;
-            updateSlide($banner, current + direction);
-            startCarousel($banner);
-        });
 
         $root.on('mouseenter', '.leanzote-banner', function () {
             clearCarousel($(this).data('banner-id'));
