@@ -257,6 +257,9 @@ class UpgradeSchema implements UpgradeSchemaInterface
 
         if (version_compare($context->getVersion(), '1.0.11', '<')) {
             // DW-360: textos con formato (HTML) y emojis.
+            // Los índices FULLTEXT exigen el mismo collation en todas sus columnas, por eso se quitan
+            // mientras se altera la tabla y se recrean al terminar.
+            $fulltextIndexes = $this->dropFulltextIndexes($setup, $tableName);
             $this->convertTableToUtf8mb4($setup, $tableName);
             $this->widenColumnsToText($setup, $tableName, self::RICH_TEXT_COLUMNS);
             $this->addColumnIfMissing($setup, $tableName, 'counter_text', [
@@ -271,6 +274,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 'nullable' => true,
                 'comment' => 'Counter Numbers Format Sample (HTML)',
             ]);
+            $this->restoreFulltextIndexes($setup, $tableName, $fulltextIndexes);
         }
 
         if (version_compare($context->getVersion(), '1.0.12', '<')) {
@@ -311,7 +315,10 @@ class UpgradeSchema implements UpgradeSchemaInterface
     }
 
     /**
-     * Cambia columnas existentes a TEXT conservando su contenido.
+     * Cambia columnas existentes a TEXT utf8mb4 conservando su contenido.
+     *
+     * Se usa ALTER explícito (no modifyColumn) para fijar el mismo charset y collation que el resto de
+     * la tabla y evitar que Magento aplique uno distinto.
      *
      * @param SchemaSetupInterface $setup
      * @param string $tableName
@@ -325,12 +332,69 @@ class UpgradeSchema implements UpgradeSchemaInterface
             if (!$connection->tableColumnExists($tableName, $column)) {
                 continue;
             }
-            $connection->modifyColumn($tableName, $column, [
-                'type' => Table::TYPE_TEXT,
-                'length' => '64k',
-                'nullable' => true,
-                'comment' => ucwords(str_replace('_', ' ', $column)) . ' (HTML)',
-            ]);
+            $connection->query(
+                sprintf(
+                    'ALTER TABLE %s MODIFY COLUMN %s TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT %s',
+                    $connection->quoteIdentifier($tableName),
+                    $connection->quoteIdentifier($column),
+                    $connection->quote(ucwords(str_replace('_', ' ', $column)) . ' (HTML)')
+                )
+            );
+        }
+    }
+
+    /**
+     * Quita los índices FULLTEXT de la tabla y devuelve su definición para recrearlos después.
+     *
+     * @param SchemaSetupInterface $setup
+     * @param string $tableName
+     * @return array<string, string[]> nombre del índice => columnas
+     */
+    private function dropFulltextIndexes(SchemaSetupInterface $setup, $tableName)
+    {
+        $connection = $setup->getConnection();
+        $dropped = [];
+        foreach ($connection->getIndexList($tableName) as $name => $index) {
+            if (strtolower((string) ($index['INDEX_TYPE'] ?? '')) !== AdapterInterface::INDEX_TYPE_FULLTEXT) {
+                continue;
+            }
+            $keyName = (string) ($index['KEY_NAME'] ?? $name);
+            $dropped[$keyName] = array_values($index['COLUMNS_LIST']);
+            $connection->dropIndex($tableName, $keyName);
+        }
+
+        return $dropped;
+    }
+
+    /**
+     * Recrea los índices FULLTEXT que se quitaron antes de alterar la tabla.
+     *
+     * @param SchemaSetupInterface $setup
+     * @param string $tableName
+     * @param array<string, string[]> $indexes
+     * @return void
+     */
+    private function restoreFulltextIndexes(SchemaSetupInterface $setup, $tableName, array $indexes)
+    {
+        $connection = $setup->getConnection();
+        if (!$indexes) {
+            // Reintento tras un upgrade interrumpido: el índice ya pudo haberse quitado.
+            $defaultColumns = ['rich_text_content', 'button_text'];
+            $defaultName = $setup->getIdxName(self::MAIN_TABLE, $defaultColumns, AdapterInterface::INDEX_TYPE_FULLTEXT);
+            $hasFulltext = false;
+            foreach ($connection->getIndexList($tableName) as $index) {
+                if (strtolower((string) ($index['INDEX_TYPE'] ?? '')) === AdapterInterface::INDEX_TYPE_FULLTEXT) {
+                    $hasFulltext = true;
+                    break;
+                }
+            }
+            $indexes = $hasFulltext ? [] : [$defaultName => $defaultColumns];
+        }
+        foreach ($indexes as $name => $columns) {
+            if (isset($connection->getIndexList($tableName)[strtoupper($name)])) {
+                continue;
+            }
+            $connection->addIndex($tableName, $name, $columns, AdapterInterface::INDEX_TYPE_FULLTEXT);
         }
     }
 
