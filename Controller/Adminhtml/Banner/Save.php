@@ -4,6 +4,7 @@ namespace LeanCommerce\LeanZote\Controller\Adminhtml\Banner;
 
 use LeanCommerce\LeanZote\Model\Banner\BannedUrlNormalizer;
 use LeanCommerce\LeanZote\Model\Banner\ColorNormalizer;
+use LeanCommerce\LeanZote\Model\Banner\RichTextSanitizer;
 use LeanCommerce\LeanZote\Model\Banner\StoreAssignment;
 use LeanCommerce\LeanZote\Model\BannerFactory;
 use Magento\Backend\App\Action;
@@ -31,22 +32,16 @@ class Save extends Action
         'desktop_text_content_3',
         'mobile_text_content_3',
         'carousel_interval',
-        'desktop_highlight_1',
         'desktop_button_text_1',
         'desktop_button_link_1',
-        'mobile_highlight_1',
         'mobile_button_text_1',
         'mobile_button_link_1',
-        'desktop_highlight_2',
         'desktop_button_text_2',
         'desktop_button_link_2',
-        'mobile_highlight_2',
         'mobile_button_text_2',
         'mobile_button_link_2',
-        'desktop_highlight_3',
         'desktop_button_text_3',
         'desktop_button_link_3',
-        'mobile_highlight_3',
         'mobile_button_text_3',
         'mobile_button_link_3',
         'button_text',
@@ -66,7 +61,36 @@ class Save extends Action
         'button_color_background',
         'counter_color_text',
         'button_before',
+        'counter_text',
+        'counter_numbers_format',
         'store_id',
+    ];
+
+    /**
+     * Campos con formato (HTML del editor) que admiten bloques (párrafos con alineación).
+     */
+    private const RICH_TEXT_BLOCK_FIELDS = [
+        'rich_text_content',
+        'mobile_text_content',
+        'desktop_text_content_2',
+        'mobile_text_content_2',
+        'desktop_text_content_3',
+        'mobile_text_content_3',
+    ];
+
+    /**
+     * Campos con formato (HTML del editor) que se muestran dentro de un botón o del contador.
+     */
+    private const RICH_TEXT_INLINE_FIELDS = [
+        'button_text',
+        'desktop_button_text_1',
+        'mobile_button_text_1',
+        'desktop_button_text_2',
+        'mobile_button_text_2',
+        'desktop_button_text_3',
+        'mobile_button_text_3',
+        'counter_text',
+        'counter_numbers_format',
     ];
 
     /**
@@ -100,6 +124,11 @@ class Save extends Action
     private $bannedUrlNormalizer;
 
     /**
+     * @var RichTextSanitizer
+     */
+    private $richTextSanitizer;
+
+    /**
      * @var TimezoneInterface
      */
     private $localeDate;
@@ -117,6 +146,7 @@ class Save extends Action
      * @param BannedUrlNormalizer $bannedUrlNormalizer
      * @param TimezoneInterface $localeDate
      * @param TypeListInterface $cacheTypeList
+     * @param RichTextSanitizer $richTextSanitizer
      */
     public function __construct(
         Action\Context $context,
@@ -125,7 +155,8 @@ class Save extends Action
         ColorNormalizer $colorNormalizer,
         BannedUrlNormalizer $bannedUrlNormalizer,
         TimezoneInterface $localeDate,
-        TypeListInterface $cacheTypeList
+        TypeListInterface $cacheTypeList,
+        RichTextSanitizer $richTextSanitizer
     ) {
         $this->bannerFactory = $bannerFactory;
         $this->storeAssignment = $storeAssignment;
@@ -133,6 +164,7 @@ class Save extends Action
         $this->bannedUrlNormalizer = $bannedUrlNormalizer;
         $this->localeDate = $localeDate;
         $this->cacheTypeList = $cacheTypeList;
+        $this->richTextSanitizer = $richTextSanitizer;
         parent::__construct($context);
     }
 
@@ -233,6 +265,13 @@ class Save extends Action
             'end_date_button' => $endDateButton,
         ]);
         $this->normalizeColorFields($safeData);
+        $this->sanitizeRichTextFields($safeData);
+
+        if (array_key_exists('rich_text_content', $safeData) && $safeData['rich_text_content'] === '') {
+            $this->messageManager->addErrorMessage(__('El Mensaje 1 - Desktop es obligatorio.'));
+            return $resultRedirect->setPath('*/*/edit', ['banner_id' => $id]);
+        }
+
         $model->addData($safeData);
         try {
             $model->save();
@@ -382,6 +421,27 @@ class Save extends Action
             }
 
             $data[$field] = $this->colorNormalizer->normalize($data[$field]);
+        }
+    }
+
+    /**
+     * Limpia el HTML del editor de texto dejando solo formato de texto y emojis.
+     *
+     * @param array $data
+     * @return void
+     */
+    private function sanitizeRichTextFields(array &$data)
+    {
+        foreach (self::RICH_TEXT_BLOCK_FIELDS as $field) {
+            if (array_key_exists($field, $data)) {
+                $data[$field] = $this->richTextSanitizer->sanitize($data[$field], RichTextSanitizer::MODE_BLOCK);
+            }
+        }
+
+        foreach (self::RICH_TEXT_INLINE_FIELDS as $field) {
+            if (array_key_exists($field, $data)) {
+                $data[$field] = $this->richTextSanitizer->sanitize($data[$field], RichTextSanitizer::MODE_INLINE);
+            }
         }
     }
 

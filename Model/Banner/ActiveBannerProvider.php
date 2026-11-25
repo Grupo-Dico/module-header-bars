@@ -43,13 +43,19 @@ class ActiveBannerProvider
      */
     private $bannedUrlNormalizer;
 
+    /**
+     * @var RichTextSanitizer
+     */
+    private $richTextSanitizer;
+
     public function __construct(
         CollectionFactory $collectionFactory,
         StoreManagerInterface $storeManager,
         UrlInterface $urlBuilder,
         DateTime $dateTime,
         ColorNormalizer $colorNormalizer,
-        BannedUrlNormalizer $bannedUrlNormalizer
+        BannedUrlNormalizer $bannedUrlNormalizer,
+        RichTextSanitizer $richTextSanitizer
     ) {
         $this->collectionFactory = $collectionFactory;
         $this->storeManager = $storeManager;
@@ -57,6 +63,7 @@ class ActiveBannerProvider
         $this->dateTime = $dateTime;
         $this->colorNormalizer = $colorNormalizer;
         $this->bannedUrlNormalizer = $bannedUrlNormalizer;
+        $this->richTextSanitizer = $richTextSanitizer;
     }
 
     /**
@@ -130,7 +137,7 @@ class ActiveBannerProvider
         return [
             'id' => (int) $banner->getId(),
             // `content` se conserva para compatibilidad con implementaciones anteriores.
-            'content' => (string) $banner->getRichTextContent(),
+            'content' => $this->sanitizeBlock($banner->getRichTextContent()),
             'messages' => $this->buildMessages($banner, $storeId),
             'carousel_interval' => max(2, min(60, (int) ($banner->getData('carousel_interval') ?: 5))),
             'start_date' => $this->formatUtcDate($banner->getStartDate()),
@@ -143,7 +150,7 @@ class ActiveBannerProvider
             'counter_color_text' => $counterTextColor,
             'button' => [
                 'enabled' => (bool) $banner->getButtonEnabled(),
-                'text' => (string) $banner->getButtonText(),
+                'text' => $this->sanitizeInline($banner->getButtonText()),
                 'link' => $this->sanitizeUrl($banner->getButtonLink(), $storeId),
                 'before_counter' => (bool) $banner->getButtonBefore(),
                 'text_color' => $buttonTextColor,
@@ -155,6 +162,8 @@ class ActiveBannerProvider
                 'end_date' => $this->formatUtcDate($counterEndDate),
                 'text_color' => $counterTextColor,
                 'background_color' => $counterBackgroundColor,
+                'text' => $this->sanitizeInline($banner->getData('counter_text')),
+                'numbers_format' => $this->sanitizeInline($banner->getData('counter_numbers_format')),
             ],
         ];
     }
@@ -169,15 +178,15 @@ class ActiveBannerProvider
     private function buildMessages($banner, $storeId)
     {
         $rows = [
-            1 => [(string) $banner->getRichTextContent(), (string) $banner->getMobileTextContent()],
-            2 => [(string) $banner->getData('desktop_text_content_2'), (string) $banner->getData('mobile_text_content_2')],
-            3 => [(string) $banner->getData('desktop_text_content_3'), (string) $banner->getData('mobile_text_content_3')],
+            1 => [$banner->getRichTextContent(), $banner->getMobileTextContent()],
+            2 => [$banner->getData('desktop_text_content_2'), $banner->getData('mobile_text_content_2')],
+            3 => [$banner->getData('desktop_text_content_3'), $banner->getData('mobile_text_content_3')],
         ];
         $messages = [];
 
         foreach ($rows as $index => $row) {
-            $desktop = trim($row[0]);
-            $mobile = trim($row[1]);
+            $desktop = $this->sanitizeBlock($row[0]);
+            $mobile = $this->sanitizeBlock($row[1]);
 
             if ($desktop === '' && $mobile === '') {
                 continue;
@@ -190,9 +199,9 @@ class ActiveBannerProvider
                 $mobile = $desktop;
             }
 
-            $desktopButtonText = trim((string) $banner->getData('desktop_button_text_' . $index));
+            $desktopButtonText = $this->sanitizeInline($banner->getData('desktop_button_text_' . $index));
             $desktopButtonLink = $this->sanitizeUrl($banner->getData('desktop_button_link_' . $index), $storeId);
-            $mobileButtonText = trim((string) $banner->getData('mobile_button_text_' . $index));
+            $mobileButtonText = $this->sanitizeInline($banner->getData('mobile_button_text_' . $index));
             $mobileButtonLink = $this->sanitizeUrl($banner->getData('mobile_button_link_' . $index), $storeId);
 
             // CTA general/fallback:
@@ -201,7 +210,7 @@ class ActiveBannerProvider
             // - Esto permite, por ejemplo, escribir un CTA específico pero heredar la URL general,
             //   o dejar ambos vacíos para reutilizar por completo el CTA general.
             if ($banner->getButtonEnabled()) {
-                $legacyText = trim((string) $banner->getButtonText());
+                $legacyText = $this->sanitizeInline($banner->getButtonText());
                 $legacyLink = $this->sanitizeUrl($banner->getButtonLink(), $storeId);
 
                 if ($desktopButtonText === '') {
@@ -221,7 +230,6 @@ class ActiveBannerProvider
             $messages[] = [
                 'desktop' => [
                     'text' => $desktop,
-                    'highlight' => trim((string) $banner->getData('desktop_highlight_' . $index)),
                     'button' => [
                         'text' => $desktopButtonText,
                         'link' => $desktopButtonLink,
@@ -229,7 +237,6 @@ class ActiveBannerProvider
                 ],
                 'mobile' => [
                     'text' => $mobile,
-                    'highlight' => trim((string) $banner->getData('mobile_highlight_' . $index)),
                     'button' => [
                         'text' => $mobileButtonText,
                         'link' => $mobileButtonLink,
@@ -239,6 +246,24 @@ class ActiveBannerProvider
         }
 
         return array_slice($messages, 0, 3);
+    }
+
+    /**
+     * @param mixed $html
+     * @return string
+     */
+    private function sanitizeBlock($html)
+    {
+        return $this->richTextSanitizer->sanitize($html, RichTextSanitizer::MODE_BLOCK);
+    }
+
+    /**
+     * @param mixed $html
+     * @return string
+     */
+    private function sanitizeInline($html)
+    {
+        return $this->richTextSanitizer->sanitize($html, RichTextSanitizer::MODE_INLINE);
     }
 
     /**

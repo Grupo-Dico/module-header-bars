@@ -39,9 +39,21 @@ class DataProvider extends AbstractDataProvider
         
         $items = $this->getCollection()->toArray();
         
+        $rows = array_values($items['items'] ?? []);
+
+        // El grid muestra texto plano: se quita el HTML del editor para que sea legible.
+        foreach ($rows as &$row) {
+            foreach (['rich_text_content', 'button_text'] as $field) {
+                if (isset($row[$field])) {
+                    $row[$field] = trim(html_entity_decode(strip_tags((string) $row[$field]), ENT_QUOTES, 'UTF-8'));
+                }
+            }
+        }
+        unset($row);
+
         return [
             'totalRecords' => $this->getCollection()->getSize(),
-            'items' => array_values($items['items'] ?? []),
+            'items' => $rows,
         ];
     }
 }

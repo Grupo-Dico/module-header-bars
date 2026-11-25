@@ -150,6 +150,42 @@ define(['jquery'], function ($) {
             return !!endDate && now < endDate;
         }
 
+        /**
+         * Crea el elemento de un número (horas, minutos o segundos). Si hay un formato de muestra definido
+         * en el Admin, el primer número de la muestra se reemplaza por el valor del contador conservando
+         * el formato (tipo de letra, tamaño, estilo y color) que lo envuelve.
+         */
+        function buildCounterNumber(unitName, sampleHtml) {
+            var $value = $('<span/>', {'class': 'leanzote-counter__' + unitName, text: '00'});
+            var $wrapper, done = false;
+
+            if (!sampleHtml) { return $value; }
+
+            $wrapper = $('<span/>', {'class': 'leanzote-counter__formatted'}).html(sampleHtml);
+
+            (function walk(node) {
+                $(node).contents().each(function () {
+                    var match, before, after;
+                    if (done) { return false; }
+                    if (this.nodeType === 3) {
+                        match = /\d+/.exec(this.nodeValue);
+                        if (match) {
+                            before = this.nodeValue.slice(0, match.index);
+                            after = this.nodeValue.slice(match.index + match[0].length);
+                            this.nodeValue = before;
+                            $(this).after(document.createTextNode(after)).after($value);
+                            done = true;
+                            return false;
+                        }
+                    } else if (this.nodeType === 1) {
+                        walk(this);
+                    }
+                });
+            }($wrapper[0]));
+
+            return done ? $wrapper : $value;
+        }
+
         function buildCounter(banner) {
             var counter = banner.counter || {};
             var bannerId = parseInt(banner.id, 10);
@@ -170,17 +206,29 @@ define(['jquery'], function ($) {
 
             $numbers = $('<div/>', {'class': 'leanzote-counter__numbers'});
             $.each(units, function (index, unit) {
+                var $number = buildCounterNumber(unit[0], counter.numbers_format);
                 if (index > 0) {
                     $numbers.append($('<span/>', {'class': 'leanzote-counter__separator', text: ':'}));
                 }
                 $numbers.append(
                     $('<div/>', {'class': 'leanzote-counter__time-block'})
-                        .append($('<span/>', {'class': 'leanzote-counter__' + unit[0], text: '00'}))
+                        .append($number)
                         .append($('<span/>', {'class': 'leanzote-counter__unit', text: unit[1]}))
                 );
             });
+
+            // Texto opcional con formato que acompaña al contador (HTML saneado en el servidor).
+            if (counter.text) {
+                $counter.append($('<div/>', {'class': 'leanzote-counter__text'}).html(counter.text));
+            }
             $counter.append($numbers);
-            setStyle($counter.find('span'), 'color', textColor, true);
+
+            // Los colores de Apariencia solo se fuerzan en elementos propios; el color definido en el
+            // editor (en el texto o en el formato de los números) tiene prioridad sobre ellos.
+            setStyle($counter.find('.leanzote-counter__separator, .leanzote-counter__unit'), 'color', textColor, true);
+            if (!counter.numbers_format) {
+                setStyle($counter.find('.leanzote-counter__time-block > span:first-child'), 'color', textColor, true);
+            }
             return $counter;
         }
 
@@ -199,7 +247,7 @@ define(['jquery'], function ($) {
 
             // Compatibilidad con payload 1.0.6 (desktop/mobile como strings).
             if (typeof preferred === 'string') {
-                return {text: preferred || (typeof fallback === 'string' ? fallback : ''), highlight: '', button: {}};
+                return {text: preferred || (typeof fallback === 'string' ? fallback : ''), button: {}};
             }
             if (!preferred || typeof preferred !== 'object') {
                 preferred = fallback && typeof fallback === 'object' ? fallback : {};
@@ -207,7 +255,6 @@ define(['jquery'], function ($) {
 
             return {
                 text: firstValue(preferred.text, fallback && fallback.text, ''),
-                highlight: firstValue(preferred.highlight, ''),
                 button: preferred.button || {}
             };
         }
@@ -215,7 +262,7 @@ define(['jquery'], function ($) {
         function renderSlide($banner, index, animate) {
             var messages = $banner.data('messages') || [];
             var total = messages.length;
-            var safeIndex, variant, $body, $copy, $highlight, $button;
+            var safeIndex, variant, $body, $copy, $button;
             var buttonBackground = firstValue($banner.data('button-background-color'), '#000000');
             var buttonTextColor = firstValue($banner.data('button-text-color'), '#FFFFFF');
 
@@ -226,19 +273,18 @@ define(['jquery'], function ($) {
 
             $body = $banner.find('.leanzote-banner__message-body');
             $copy = $body.find('.leanzote-banner__copy');
-            $highlight = $body.find('.leanzote-banner__highlight');
             $button = $body.find('.leanzote-banner__slide-button');
 
             function applyContent() {
-                $copy.text(variant.text || '').toggle(!!variant.text);
-                $copy.parent().toggle(!!(variant.text || variant.highlight));
-                $highlight.text(variant.highlight || '').toggle(!!variant.highlight);
+                // El HTML (formato y emojis) viene saneado desde el servidor.
+                $copy.html(variant.text || '').toggle(!!variant.text);
+                $copy.parent().toggle(!!variant.text);
 
                 if (variant.button && variant.button.text && variant.button.link) {
-                    $button.attr('href', variant.button.link).text(variant.button.text).show();
+                    $button.attr('href', variant.button.link).html(variant.button.text).show();
                     applyColors($button, buttonBackground, buttonTextColor);
                 } else {
-                    $button.removeAttr('href').text('').hide();
+                    $button.removeAttr('href').empty().hide();
                 }
                 checkBannerVisibility();
             }
@@ -277,10 +323,9 @@ define(['jquery'], function ($) {
             var $body = $('<div/>', {'class': 'leanzote-banner__message-body'});
             var $copyGroup = $('<span/>', {'class': 'leanzote-banner__copy-group'});
             var $copy = $('<span/>', {'class': 'leanzote-banner__copy'});
-            var $highlight = $('<strong/>', {'class': 'leanzote-banner__highlight'}).hide();
             var $button = $('<a/>', {'class': 'leanzote-banner__slide-button'}).hide();
 
-            $copyGroup.append($copy).append($highlight);
+            $copyGroup.append($copy);
             $body.append($copyGroup).append($button);
 
             $area.append($body);
@@ -331,7 +376,6 @@ define(['jquery'], function ($) {
             applyColors($bannerElement, backgroundColor, textColor);
             setStyle($content, 'color', textColor, true);
             setStyle($content.find('.leanzote-banner__copy'), 'color', textColor, true);
-            setStyle($content.find('.leanzote-banner__highlight'), 'color', textColor, true);
             setStyle($closeButton, 'color', textColor, true);
 
             $bannerElement.append($content).append($closeButton);

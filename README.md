@@ -170,6 +170,19 @@ Reglas importantes:
 - No usar URLs protocol-relative como `//dominio.com/ruta`.
 - Si una entrada guardada no es valida, se ignora al evaluar frontend para evitar ocultamientos globales accidentales.
 
+## Textos con formato y emojis (DW-360)
+Los campos **Mensaje 1, 2 y 3 (Desktop/Mobile)**, **CTA 1, 2 y 3 (Desktop/Mobile)**, **Texto CTA general**, **Texto que acompana al contador** y **Formato de los numeros del contador** usan el editor de texto de Magento (sin Page Builder). Las URL siguen siendo texto simple.
+
+- Opciones de formato: tipo de letra (fuentes del editor de Magento), tamano, negrita, cursiva, subrayado, color y alineacion, sobre todo el texto o una parte.
+- Emojis: permitidos en mensajes y CTA. Se guardan en `utf8mb4` (upgrade `1.0.11` convierte la tabla y la conexion del modulo usa `SET NAMES 'utf8mb4'`). No se permiten en el contador.
+- **Beneficio destacado** (1, 2 y 3, Desktop y Mobile) se elimino del formulario y del frontend. Las columnas se conservan en BD sin uso; el contenido anterior debe recapturarse dentro del Mensaje con negritas.
+- Seguridad: el HTML se sanea al guardar y otra vez al publicar (`Model/Banner/RichTextSanitizer`). Solo se conservan etiquetas de texto (`p`, `div`, `span`, `strong`, `b`, `em`, `i`, `u`, `s`, `br`, `sub`, `sup`) y estas propiedades: `font-family`, `font-size`, `font-weight`, `font-style`, `text-decoration`, `text-align`, `color`, `background-color`, `line-height`. Todo lo demas (scripts, enlaces, imagenes, atributos) se elimina.
+- Tamano maximo de letra: 32px (valores mayores se reducen a 32px para no desbordar la barra).
+- Prioridad de color: el color aplicado en el editor gana sobre el color de **Apariencia** solo en el fragmento donde se aplico; el resto del texto usa el color de Apariencia.
+- Mensaje Mobile vacio: se usa el copy Desktop **con su formato**.
+- Contador: **Texto que acompana al contador** aparece antes de los numeros (solo si se captura). **Formato de los numeros** funciona como muestra: se escribe `00` con el formato deseado y se aplica a horas, minutos y segundos.
+- La alineacion es visible cuando el texto ocupa mas de una linea o hay varios parrafos; la barra mantiene el mensaje centrado como grupo.
+
 ## Comportamiento en frontend
 
 - El banner solo se muestra si esta activo, dentro de `start_date` / `end_date`, asignado al store actual y permitido para la URL actual.
@@ -178,8 +191,8 @@ Reglas importantes:
 - Los banners asignados especificamente al store actual tienen prioridad visual sobre banners de **All Store Views**.
 - En empate de prioridad, el banner con `banner_id` mas alto aparece primero.
 - En mobile, multiples banners se apilan calculando la altura real de cada barra.
-- Mensaje, beneficio destacado, contador y CTA se centran en una sola fila. Si falta alguno (texto, botón o contador), el resto se recentra sin dejar huecos. En mobile, si no caben en una línea, el CTA baja centrado y el copy se ajusta en vez de cortarse con "...".
-- La barra es más compacta (menos alto, flechas y botón de cerrar más pequeños).
+- Mensaje, contador y CTA se centran en una sola fila. Si falta alguno (texto, botón o contador), el resto se recentra sin dejar huecos. En mobile, si no caben en una línea, el CTA baja centrado y el copy se ajusta en vez de cortarse con "...".
+- La barra es más compacta (menos alto y botón de cerrar más pequeño). El carrusel no muestra flechas de navegación.
 - La barra ajusta variables CSS para no tapar el header fijo.
 - El boton de cerrar se muestra y funciona en mobile.
 - El contador se renderiza solo si esta dentro de su propio rango vigente.

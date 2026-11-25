@@ -14,6 +14,19 @@ class UpgradeSchema implements UpgradeSchemaInterface
     private const STORE_TABLE = 'leanCommerce_leanZote_store';
 
     /**
+     * Columnas que antes eran VARCHAR(255) y ahora guardan HTML del editor de texto.
+     */
+    private const RICH_TEXT_COLUMNS = [
+        'button_text',
+        'desktop_button_text_1',
+        'mobile_button_text_1',
+        'desktop_button_text_2',
+        'mobile_button_text_2',
+        'desktop_button_text_3',
+        'mobile_button_text_3',
+    ];
+
+    /**
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
      * @return void
@@ -242,7 +255,67 @@ class UpgradeSchema implements UpgradeSchemaInterface
             ]);
         }
 
+        if (version_compare($context->getVersion(), '1.0.11', '<')) {
+            // DW-360: textos con formato (HTML) y emojis.
+            $this->convertTableToUtf8mb4($setup, $tableName);
+            $this->widenColumnsToText($setup, $tableName, self::RICH_TEXT_COLUMNS);
+            $this->addColumnIfMissing($setup, $tableName, 'counter_text', [
+                'type' => Table::TYPE_TEXT,
+                'length' => '64k',
+                'nullable' => true,
+                'comment' => 'Counter Accompanying Text (HTML)',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'counter_numbers_format', [
+                'type' => Table::TYPE_TEXT,
+                'length' => '64k',
+                'nullable' => true,
+                'comment' => 'Counter Numbers Format Sample (HTML)',
+            ]);
+        }
+
         $setup->endSetup();
+    }
+
+    /**
+     * Convierte la tabla a utf8mb4 para poder guardar emojis (caracteres de 4 bytes).
+     *
+     * @param SchemaSetupInterface $setup
+     * @param string $tableName
+     * @return void
+     */
+    private function convertTableToUtf8mb4(SchemaSetupInterface $setup, $tableName)
+    {
+        $connection = $setup->getConnection();
+        $connection->query(
+            sprintf(
+                'ALTER TABLE %s CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci',
+                $connection->quoteIdentifier($tableName)
+            )
+        );
+    }
+
+    /**
+     * Cambia columnas existentes a TEXT conservando su contenido.
+     *
+     * @param SchemaSetupInterface $setup
+     * @param string $tableName
+     * @param string[] $columns
+     * @return void
+     */
+    private function widenColumnsToText(SchemaSetupInterface $setup, $tableName, array $columns)
+    {
+        $connection = $setup->getConnection();
+        foreach ($columns as $column) {
+            if (!$connection->tableColumnExists($tableName, $column)) {
+                continue;
+            }
+            $connection->modifyColumn($tableName, $column, [
+                'type' => Table::TYPE_TEXT,
+                'length' => '64k',
+                'nullable' => true,
+                'comment' => ucwords(str_replace('_', ' ', $column)) . ' (HTML)',
+            ]);
+        }
     }
 
     /**

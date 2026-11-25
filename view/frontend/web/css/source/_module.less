@@ -81,20 +81,21 @@ body.leanzote-banner-visible {
 
     &__copy {
         white-space: normal;
+        overflow-wrap: anywhere;
         font-family: 'Montserrat', Arial, sans-serif;
         font-weight: 400;
-    }
 
-    &__highlight {
-        margin-left: 4px;
-        font-family: 'Montserrat', Arial, sans-serif;
-        font-weight: 700;
-        white-space: nowrap;
-    }
+        // HTML del editor de texto: sin márgenes para conservar las proporciones de la barra.
+        p,
+        div {
+            margin: 0;
+            padding: 0;
+        }
 
-    // Sin copy normal, el beneficio no debe dejar sangría a la izquierda.
-    &__copy:empty + &__highlight {
-        margin-left: 0;
+        strong,
+        b {
+            font-weight: 700;
+        }
     }
 
     &__slide-button {
@@ -119,6 +120,17 @@ body.leanzote-banner-visible {
         &:visited {
             text-decoration: none !important;
         }
+
+        // Texto del botón con formato del editor: hereda el color del botón salvo que se defina otro.
+        span,
+        strong,
+        b,
+        em,
+        i,
+        u,
+        s {
+            font-family: inherit;
+        }
     }
 
     &__counter {
@@ -126,6 +138,7 @@ body.leanzote-banner-visible {
         display: flex;
         flex-direction: row;
         align-items: center;
+        gap: 8px;
         padding: 3px 8px;
         border-radius: 10px;
         font-size: 10px;
@@ -176,6 +189,19 @@ body.leanzote-banner-visible {
         line-height: 1;
     }
 
+    &__text {
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.1;
+        white-space: nowrap;
+
+        p,
+        div {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
     &__separator {
         opacity: .7;
         align-self: flex-start;
@@ -195,16 +221,16 @@ body.leanzote-banner-visible {
     }
 }
 
-// Desktop: todo en una sola línea (mensaje + contador + CTA).
+// Desktop: mensaje + contador + CTA en una sola línea. Si un texto con formato no cabe,
+// el mensaje se ajusta en dos líneas en lugar de desbordar o cortar la barra.
 @media only screen and (min-width: 1025px) {
     .leanzote-banner {
         &__message-body {
             flex-wrap: nowrap;
         }
 
-        &__copy-group,
-        &__copy {
-            white-space: nowrap;
+        &__copy-group {
+            flex: 0 1 auto;
         }
     }
 }
@@ -279,15 +305,6 @@ body.leanzote-banner-visible {
             white-space: normal;
         }
 
-        &__highlight {
-            margin-left: 3px;
-        }
-
-        &__highlight {
-            font-size: 12px;
-            line-height: 1.15;
-        }
-
         &__slide-button {
             min-height: 18px;
             padding: 3px 12px;
@@ -317,8 +334,7 @@ body.leanzote-banner-visible {
         padding-left: 5px;
         padding-right: 29px;
 
-        &__copy,
-        &__highlight {
+        &__copy {
             font-size: 11px;
         }
 

@@ -162,55 +162,83 @@
     <fieldset name="main_message">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">3. Mensajes, beneficios y CTA por dispositivo</item>
+                <item name="label" xsi:type="string" translate="true">3. Mensajes y CTA por dispositivo</item>
                 <item name="collapsible" xsi:type="boolean">true</item>
                 <item name="opened" xsi:type="boolean">true</item>
                 <item name="sortOrder" xsi:type="number">30</item>
-                <item name="notice" xsi:type="string" translate="true">Cada mensaje puede tener copy, beneficio destacado y botón/URL independientes para Desktop y Mobile.</item>
+                <item name="notice" xsi:type="string" translate="true">Cada mensaje puede tener copy con formato y emojis, y botón/URL independientes para Desktop y Mobile.</item>
             </item>
         </argument>
-        <field name="rich_text_content">
+        <field name="rich_text_content" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 1 - Desktop *</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">rich_text_content</item>
                     <item name="sortOrder" xsi:type="number">10</item>
-                    <item name="rows" xsi:type="number">2</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">true</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">110px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     </item>
-                    <item name="notice" xsi:type="string" translate="true">Copy del slide 1 para Desktop.</item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Mensaje 1 - Desktop *</label>
+                <dataScope>rich_text_content</dataScope>
+                <notice translate="true">Copy del slide 1 para Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
-        <field name="desktop_highlight_1">
+        <field name="desktop_button_text_1" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 1 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_highlight_1</item>
-                    <item name="sortOrder" xsi:type="number">20</item>
-                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="desktop_button_text_1">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">CTA 1 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_button_text_1</item>
                     <item name="sortOrder" xsi:type="number">30</item>
-                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">CTA 1 - Desktop</label>
+                <dataScope>desktop_button_text_1</dataScope>
+                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="desktop_button_link_1">
             <argument name="data" xsi:type="array">
@@ -225,45 +253,73 @@
                 </item>
             </argument>
         </field>
-        <field name="mobile_text_content">
+        <field name="mobile_text_content" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 1 - Mobile</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_text_content</item>
                     <item name="sortOrder" xsi:type="number">50</item>
-                    <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Copy del slide 1 para Mobile. Si se deja vacío, usa el copy Desktop.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">110px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Mensaje 1 - Mobile</label>
+                <dataScope>mobile_text_content</dataScope>
+                <notice translate="true">Copy del slide 1 para Mobile. Si se deja vacío, usa el copy Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
-        <field name="mobile_highlight_1">
+        <field name="mobile_button_text_1" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 1 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_highlight_1</item>
-                    <item name="sortOrder" xsi:type="number">60</item>
-                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="mobile_button_text_1">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">CTA 1 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_button_text_1</item>
                     <item name="sortOrder" xsi:type="number">70</item>
-                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">CTA 1 - Mobile</label>
+                <dataScope>mobile_button_text_1</dataScope>
+                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="mobile_button_link_1">
             <argument name="data" xsi:type="array">
@@ -278,45 +334,73 @@
                 </item>
             </argument>
         </field>
-        <field name="desktop_text_content_2">
+        <field name="desktop_text_content_2" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Desktop</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_text_content_2</item>
                     <item name="sortOrder" xsi:type="number">90</item>
-                    <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Copy del slide 2 para Desktop.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">110px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Mensaje 2 - Desktop</label>
+                <dataScope>desktop_text_content_2</dataScope>
+                <notice translate="true">Copy del slide 2 para Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
-        <field name="desktop_highlight_2">
+        <field name="desktop_button_text_2" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 2 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_highlight_2</item>
-                    <item name="sortOrder" xsi:type="number">100</item>
-                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="desktop_button_text_2">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">CTA 2 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_button_text_2</item>
                     <item name="sortOrder" xsi:type="number">110</item>
-                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">CTA 2 - Desktop</label>
+                <dataScope>desktop_button_text_2</dataScope>
+                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="desktop_button_link_2">
             <argument name="data" xsi:type="array">
@@ -331,45 +415,73 @@
                 </item>
             </argument>
         </field>
-        <field name="mobile_text_content_2">
+        <field name="mobile_text_content_2" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 2 - Mobile</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_text_content_2</item>
                     <item name="sortOrder" xsi:type="number">130</item>
-                    <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Copy del slide 2 para Mobile. Si se deja vacío, usa el copy Desktop.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">110px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Mensaje 2 - Mobile</label>
+                <dataScope>mobile_text_content_2</dataScope>
+                <notice translate="true">Copy del slide 2 para Mobile. Si se deja vacío, usa el copy Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
-        <field name="mobile_highlight_2">
+        <field name="mobile_button_text_2" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 2 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_highlight_2</item>
-                    <item name="sortOrder" xsi:type="number">140</item>
-                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="mobile_button_text_2">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">CTA 2 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_button_text_2</item>
                     <item name="sortOrder" xsi:type="number">150</item>
-                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">CTA 2 - Mobile</label>
+                <dataScope>mobile_button_text_2</dataScope>
+                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="mobile_button_link_2">
             <argument name="data" xsi:type="array">
@@ -384,45 +496,73 @@
                 </item>
             </argument>
         </field>
-        <field name="desktop_text_content_3">
+        <field name="desktop_text_content_3" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Desktop</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_text_content_3</item>
                     <item name="sortOrder" xsi:type="number">170</item>
-                    <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Copy del slide 3 para Desktop.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">110px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Mensaje 3 - Desktop</label>
+                <dataScope>desktop_text_content_3</dataScope>
+                <notice translate="true">Copy del slide 3 para Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
-        <field name="desktop_highlight_3">
+        <field name="desktop_button_text_3" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 3 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_highlight_3</item>
-                    <item name="sortOrder" xsi:type="number">180</item>
-                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="desktop_button_text_3">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">CTA 3 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_button_text_3</item>
                     <item name="sortOrder" xsi:type="number">190</item>
-                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">CTA 3 - Desktop</label>
+                <dataScope>desktop_button_text_3</dataScope>
+                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="desktop_button_link_3">
             <argument name="data" xsi:type="array">
@@ -437,45 +577,73 @@
                 </item>
             </argument>
         </field>
-        <field name="mobile_text_content_3">
+        <field name="mobile_text_content_3" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Mensaje 3 - Mobile</item>
-                    <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_text_content_3</item>
                     <item name="sortOrder" xsi:type="number">210</item>
-                    <item name="rows" xsi:type="number">2</item>
-                    <item name="notice" xsi:type="string" translate="true">Copy del slide 3 para Mobile. Si se deja vacío, usa el copy Desktop.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">110px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Mensaje 3 - Mobile</label>
+                <dataScope>mobile_text_content_3</dataScope>
+                <notice translate="true">Copy del slide 3 para Mobile. Si se deja vacío, usa el copy Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
-        <field name="mobile_highlight_3">
+        <field name="mobile_button_text_3" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Beneficio destacado 3 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_highlight_3</item>
-                    <item name="sortOrder" xsi:type="number">220</item>
-                    <item name="notice" xsi:type="string" translate="true">Se muestra en Montserrat Bold. Ejemplo: Cupón: PPWEEK26 o HASTA 6 MSI.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="mobile_button_text_3">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">CTA 3 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_button_text_3</item>
                     <item name="sortOrder" xsi:type="number">230</item>
-                    <item name="notice" xsi:type="string" translate="true">Ejemplo: Comprar Ahora. Déjalo vacío si este copy no requiere botón.</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">CTA 3 - Mobile</label>
+                <dataScope>mobile_button_text_3</dataScope>
+                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="mobile_button_link_3">
             <argument name="data" xsi:type="array">
@@ -528,10 +696,40 @@
                 <item name="valueMap" xsi:type="array"><item name="true" xsi:type="number">1</item><item name="false" xsi:type="number">0</item></item>
             </item></argument>
         </field>
-        <field name="button_text"><argument name="data" xsi:type="array"><item name="config" xsi:type="array">
-            <item name="dataType" xsi:type="string">text</item><item name="label" xsi:type="string" translate="true">Texto CTA general</item><item name="formElement" xsi:type="string">input</item>
-            <item name="source" xsi:type="string">banner</item><item name="dataScope" xsi:type="string">button_text</item><item name="sortOrder" xsi:type="number">20</item>
-        </item></argument></field>
+        <field name="button_text" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Texto CTA general</label>
+                <dataScope>button_text</dataScope>
+                <notice translate="true">Texto del botón general (fallback). Admite formato y emojis.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
         <field name="button_link"><argument name="data" xsi:type="array"><item name="config" xsi:type="array">
             <item name="dataType" xsi:type="string">text</item><item name="label" xsi:type="string" translate="true">URL CTA general</item><item name="formElement" xsi:type="string">input</item>
             <item name="source" xsi:type="string">banner</item><item name="dataScope" xsi:type="string">button_link</item><item name="sortOrder" xsi:type="number">30</item>
@@ -567,9 +765,73 @@
                         <item name="false" xsi:type="number">0</item>
                     </item>
                     <item name="default" xsi:type="number">0</item>
-                    <item name="notice" xsi:type="string" translate="true">Actívalo para mostrar días, horas, minutos y segundos restantes.</item>
+                    <item name="notice" xsi:type="string" translate="true">Actívalo para mostrar horas, minutos y segundos restantes.</item>
                 </item>
             </argument>
+        </field>
+        <field name="counter_text" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="sortOrder" xsi:type="number">15</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Texto que acompaña al contador</label>
+                <dataScope>counter_text</dataScope>
+                <notice translate="true">Opcional. Texto junto al contador (por ejemplo: Termina en:). Admite formato (tipo de letra, tamaño, estilo y color). No admite emojis.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+        <field name="counter_numbers_format" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="sortOrder" xsi:type="number">16</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Formato de los números del contador</label>
+                <dataScope>counter_numbers_format</dataScope>
+                <notice translate="true">Escribe 00 y aplícale el formato deseado (tipo de letra, tamaño, estilo y color). Ese formato se usa en horas, minutos y segundos. Déjalo vacío para conservar el estilo actual.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="start_date_button">
             <argument name="data" xsi:type="array">
