@@ -38,6 +38,8 @@ Estado: `Pendiente` en todas las pruebas. QA registra `OK`, `Falla` o `N/A` y la
 | T13 | CA06, Caso 2 | Emoji en mensaje | Agregar 🎉🔥 al inicio y dentro del mensaje. Guardar y reabrir el banner | El Admin guarda sin error de validación. Al reabrir y en el sitio aparecen en su posición, sin `?` ni caracteres extraños | Pendiente |
 | T14 | CA06 | Emoji en CTA | CTA 1 Desktop: "Comprar 🛒". CTA 1 Mobile y Texto CTA general con emoji | Se guardan y se muestran en el botón en Desktop y Mobile | Pendiente |
 | T15 | CA06 | Emoji tras reabrir y guardar de nuevo | Reabrir el banner con emojis, guardar sin cambios, revisar el sitio | Los emojis no se pierden ni se duplican | Pendiente |
+| T15a | CA06 | Editor sin Magezon Page Builder | Abrir un banner en Admin | Los campos de mensaje, CTA y contador muestran el editor de texto de Magento. No aparece el botón "Activate/Deactivate Magezon Page Builder" | Pendiente |
+| T15b | CA06 | Banner guardado con `[mgz_pagebuilder]` | Correr `setup:upgrade` con un banner guardado antes de 1.0.8 | El grid, el formulario y el sitio muestran solo el texto con emojis, sin el JSON del Page Builder | Pendiente |
 | T16 | 4.4 | Emoji en el texto del contador | "Termina en: 🔥" en "Texto que acompaña al contador". Guardar y reabrir | Se guarda y se muestra junto al contador | Pendiente |
 | T16b | Chat 24/11 | Emojis de 4 bytes | En mensaje y CTA capturar ⚡ ✨ 🔥 🚀 🎁 💥 ❤️ | Todos se guardan y se muestran, no solo ⚡ y ✨ | Pendiente |
 | T18b | Chat 24/11 | Tamaño por elemento del contador | Formato de números 24 px, etiquetas 9 px y separadores 20 px. Guardar | Cada elemento cambia de tamaño por separado. Horas, minutos y segundos comparten el formato de su tipo | Pendiente |

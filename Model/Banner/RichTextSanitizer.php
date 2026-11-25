@@ -47,7 +47,7 @@ class RichTextSanitizer
      */
     public function sanitize($html, string $mode = self::MODE_BLOCK): string
     {
-        $html = trim((string) $html);
+        $html = trim($this->unwrapPageBuilderShortcode((string) $html));
         if ($html === '') {
             return '';
         }
@@ -76,9 +76,62 @@ class RichTextSanitizer
         foreach (iterator_to_array($root->childNodes) as $child) {
             $output .= $document->saveHTML($child);
         }
-        $output = trim($output);
+        // Los párrafos vacíos (p. ej. el <p> que envolvía un shortcode) solo agregan altura a la barra.
+        $output = trim((string) preg_replace('/<(p|div)>(\s|&nbsp;|<br\s*\/?>)*<\/\1>/i', '', $output));
 
         return $this->hasVisibleContent($output) ? $output : '';
+    }
+
+    /**
+     * Convierte el shortcode de Magezon Page Builder en el HTML de sus elementos de texto.
+     *
+     * Antes de 1.0.8 el editor podía guardar "[mgz_pagebuilder]{json}[/mgz_pagebuilder]", que se
+     * mostraba como texto crudo en la barra. Se extrae el "content" de cada elemento y se descarta
+     * la configuración del layout (filas, columnas, fondos).
+     *
+     * @param string $html
+     * @return string
+     */
+    public function unwrapPageBuilderShortcode(string $html): string
+    {
+        if (stripos($html, '[mgz_pagebuilder]') === false) {
+            return $html;
+        }
+
+        return (string) preg_replace_callback(
+            '/\[mgz_pagebuilder\](.*?)\[\/mgz_pagebuilder\]/is',
+            function (array $matches): string {
+                $json = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $data = json_decode(trim($json), true);
+                if (!is_array($data)) {
+                    return '';
+                }
+
+                $contents = [];
+                $this->collectPageBuilderContent($data, $contents);
+
+                return implode('', $contents);
+            },
+            $html
+        );
+    }
+
+    /**
+     * @param array $node
+     * @param string[] $contents
+     * @return void
+     */
+    private function collectPageBuilderContent(array $node, array &$contents): void
+    {
+        if (isset($node['content']) && is_string($node['content']) && trim($node['content']) !== '') {
+            $contents[] = $node['content'];
+        }
+
+        foreach ($node['elements'] ?? [] as $child) {
+            if (is_array($child)) {
+                $this->collectPageBuilderContent($child, $contents);
+            }
+        }
     }
 
     /**

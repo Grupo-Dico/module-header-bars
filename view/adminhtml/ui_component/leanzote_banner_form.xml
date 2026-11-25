@@ -174,6 +174,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -211,6 +212,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -258,6 +260,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -292,6 +295,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -339,6 +343,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">90</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -373,6 +378,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">110</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -420,6 +426,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">130</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -454,6 +461,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -501,6 +509,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">170</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -535,6 +544,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">190</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -582,6 +592,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">210</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -616,6 +627,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">230</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -701,6 +713,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -773,6 +786,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="sortOrder" xsi:type="number">15</item>
                     <item name="wysiwygConfigData" xsi:type="array">
@@ -807,6 +821,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="sortOrder" xsi:type="number">16</item>
                     <item name="wysiwygConfigData" xsi:type="array">
@@ -842,6 +857,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">17</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -876,6 +892,7 @@
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="sortOrder" xsi:type="number">18</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
