@@ -1,6 +1,6 @@
 # Matriz de pruebas DW-360: textos con formato y emojis en la barra superior
 
-Módulo: `LeanCommerce_LeanZote` (módulo 1.0.11). Ruta Admin: Content > Promociones del sitio > Barra superior de anuncios.
+Módulo: `LeanCommerce_LeanZote` (módulo 1.0.12). Ruta Admin: Content > Promociones del sitio > Barra superior de anuncios.
 
 Estado: `Pendiente` en todas las pruebas. QA registra `OK`, `Falla` o `N/A` y la evidencia.
 
@@ -20,7 +20,7 @@ Estado: `Pendiente` en todas las pruebas. QA registra `OK`, `Falla` o `N/A` y la
 |---|---|---|---|---|---|
 | T01 | CA01 | Mensajes con editor | Abrir un banner y revisar Mensaje 1, 2 y 3, Desktop y Mobile | Los 6 campos muestran el editor con tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación | Pendiente |
 | T02 | CA02 | CTA con editor | Revisar CTA 1, 2 y 3 (Desktop y Mobile) y Texto CTA general (sección 4) | Los 7 campos muestran el mismo editor | Pendiente |
-| T03 | CA03 | Contador con editor | Sección 5: revisar "Texto que acompaña al contador" y "Formato de los números del contador" | Ambos campos muestran el editor | Pendiente |
+| T03 | CA03 | Contador con editor | Sección 5: revisar "Texto que acompaña al contador" y los formatos de números, etiquetas y separadores | Los 4 campos muestran el editor | Pendiente |
 | T04 | CA04 | Lista de fuentes | Abrir el selector de tipo de letra en un campo | Solo aparecen las fuentes del editor de Magento. No hay fuentes nuevas | Pendiente |
 | T05 | 6.1 | URLs sin cambio | Revisar URL CTA 1 a 3 (Desktop y Mobile) y URL CTA general | Siguen siendo campos de texto simple, sin editor | Pendiente |
 | T06 | 6.1 | Vista previa en el editor | Aplicar negritas, color y tamaño en un fragmento | El editor muestra el formato antes de guardar | Pendiente |
@@ -38,7 +38,9 @@ Estado: `Pendiente` en todas las pruebas. QA registra `OK`, `Falla` o `N/A` y la
 | T13 | CA06, Caso 2 | Emoji en mensaje | Agregar 🎉🔥 al inicio y dentro del mensaje. Guardar y reabrir el banner | El Admin guarda sin error de validación. Al reabrir y en el sitio aparecen en su posición, sin `?` ni caracteres extraños | Pendiente |
 | T14 | CA06 | Emoji en CTA | CTA 1 Desktop: "Comprar 🛒". CTA 1 Mobile y Texto CTA general con emoji | Se guardan y se muestran en el botón en Desktop y Mobile | Pendiente |
 | T15 | CA06 | Emoji tras reabrir y guardar de nuevo | Reabrir el banner con emojis, guardar sin cambios, revisar el sitio | Los emojis no se pierden ni se duplican | Pendiente |
-| T16 | 4.2 | Emoji en el contador | Pegar un emoji en "Texto que acompaña al contador" y guardar | El Admin lo rechaza (los emojis no están permitidos en el contador) | Pendiente |
+| T16 | 4.4 | Emoji en el texto del contador | "Termina en: 🔥" en "Texto que acompaña al contador". Guardar y reabrir | Se guarda y se muestra junto al contador | Pendiente |
+| T16b | Chat 24/11 | Emojis de 4 bytes | En mensaje y CTA capturar ⚡ ✨ 🔥 🚀 🎁 💥 ❤️ | Todos se guardan y se muestran, no solo ⚡ y ✨ | Pendiente |
+| T18b | Chat 24/11 | Tamaño por elemento del contador | Formato de números 24 px, etiquetas 9 px y separadores 20 px. Guardar | Cada elemento cambia de tamaño por separado. Horas, minutos y segundos comparten el formato de su tipo | Pendiente |
 | T17 | Caso 3 | CTA personalizado | CTA 1 Desktop con fuente, tamaño, estilo y emoji | Cambia solo el texto. El botón conserva forma, colores de Apariencia y URL | Pendiente |
 | T18 | Caso 4, CA03 | Contador con formato | Texto: "Termina en:" en negritas. Formato de números: "00" con fuente, tamaño 20 px y color distinto. Guardar | Texto antes de los números. Horas, minutos y segundos usan el formato. La cuenta regresiva sigue corriendo | Pendiente |
 | T19 | Caso 4 | Contador sin formato | Dejar vacíos ambos campos del contador | El contador se ve igual que antes: horas, minutos y segundos separados por `:`, etiquetas HRS/MIN/SEGS | Pendiente |
@@ -116,6 +118,6 @@ Probar las 3 barras (A, B y C) con textos con formato y emojis en cada ancho. Re
 | Mensaje Mobile vacío | Se usa el copy Desktop con su formato |
 | Color del editor vs. Apariencia | El color del editor gana en el fragmento donde se aplicó. El resto usa Apariencia |
 | Tamaños grandes | Máximo 32 px. Valores mayores se reducen a 32 px |
-| Texto que acompaña al contador | Campo nuevo opcional, antes de los números. El formato de los números se define con una muestra "00" |
-| Etiquetas HRS, MIN y SEGS | Siguen fijas. No se editan desde el Admin |
+| Texto que acompaña al contador | Campo nuevo opcional, antes de los números. Los formatos usan una muestra: "00" para números, "HRS" para etiquetas y ":" para separadores |
+| Contador | Números, etiquetas (HRS, MIN, SEGS) y separadores tienen su propio campo de formato (muestra). El texto de las etiquetas sigue fijo |
 | Alineación | Se aplica por párrafo. Con una sola línea el mensaje queda centrado en la barra |

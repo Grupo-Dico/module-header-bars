@@ -273,6 +273,22 @@ class UpgradeSchema implements UpgradeSchemaInterface
             ]);
         }
 
+        if (version_compare($context->getVersion(), '1.0.12', '<')) {
+            // DW-360: formato de etiquetas y separadores del contador.
+            $this->addColumnIfMissing($setup, $tableName, 'counter_labels_format', [
+                'type' => Table::TYPE_TEXT,
+                'length' => '64k',
+                'nullable' => true,
+                'comment' => 'Counter Labels Format Sample (HTML)',
+            ]);
+            $this->addColumnIfMissing($setup, $tableName, 'counter_separator_format', [
+                'type' => Table::TYPE_TEXT,
+                'length' => '64k',
+                'nullable' => true,
+                'comment' => 'Counter Separator Format Sample (HTML)',
+            ]);
+        }
+
         $setup->endSetup();
     }
 

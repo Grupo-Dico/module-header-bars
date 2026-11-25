@@ -151,12 +151,12 @@ define(['jquery'], function ($) {
         }
 
         /**
-         * Crea el elemento de un número (horas, minutos o segundos). Si hay un formato de muestra definido
-         * en el Admin, el primer número de la muestra se reemplaza por el valor del contador conservando
-         * el formato (tipo de letra, tamaño, estilo y color) que lo envuelve.
+         * Devuelve el elemento del contador con el formato de muestra definido en el Admin.
+         * El primer fragmento de la muestra que coincide con `pattern` se reemplaza por `$value`
+         * y conserva el formato (tipo de letra, tamaño, estilo y color) que lo envuelve.
+         * Sin muestra, devuelve `$value` con el estilo por defecto.
          */
-        function buildCounterNumber(unitName, sampleHtml) {
-            var $value = $('<span/>', {'class': 'leanzote-counter__' + unitName, text: '00'});
+        function applyCounterFormat($value, sampleHtml, pattern) {
             var $wrapper, done = false;
 
             if (!sampleHtml) { return $value; }
@@ -168,7 +168,7 @@ define(['jquery'], function ($) {
                     var match, before, after;
                     if (done) { return false; }
                     if (this.nodeType === 3) {
-                        match = /\d+/.exec(this.nodeValue);
+                        match = pattern.exec(this.nodeValue);
                         if (match) {
                             before = this.nodeValue.slice(0, match.index);
                             after = this.nodeValue.slice(match.index + match[0].length);
@@ -206,14 +206,25 @@ define(['jquery'], function ($) {
 
             $numbers = $('<div/>', {'class': 'leanzote-counter__numbers'});
             $.each(units, function (index, unit) {
-                var $number = buildCounterNumber(unit[0], counter.numbers_format);
+                var $number = applyCounterFormat(
+                    $('<span/>', {'class': 'leanzote-counter__' + unit[0], text: '00'}),
+                    counter.numbers_format,
+                    /\d+/
+                );
+                var $label = applyCounterFormat(
+                    $('<span/>', {'class': 'leanzote-counter__unit', text: unit[1]}),
+                    counter.labels_format,
+                    /\S+/
+                );
                 if (index > 0) {
-                    $numbers.append($('<span/>', {'class': 'leanzote-counter__separator', text: ':'}));
+                    $numbers.append(applyCounterFormat(
+                        $('<span/>', {'class': 'leanzote-counter__separator', text: ':'}),
+                        counter.separator_format,
+                        /\S+/
+                    ));
                 }
                 $numbers.append(
-                    $('<div/>', {'class': 'leanzote-counter__time-block'})
-                        .append($number)
-                        .append($('<span/>', {'class': 'leanzote-counter__unit', text: unit[1]}))
+                    $('<div/>', {'class': 'leanzote-counter__time-block'}).append($number).append($label)
                 );
             });
 
@@ -223,12 +234,14 @@ define(['jquery'], function ($) {
             }
             $counter.append($numbers);
 
-            // Los colores de Apariencia solo se fuerzan en elementos propios; el color definido en el
-            // editor (en el texto o en el formato de los números) tiene prioridad sobre ellos.
-            setStyle($counter.find('.leanzote-counter__separator, .leanzote-counter__unit'), 'color', textColor, true);
-            if (!counter.numbers_format) {
-                setStyle($counter.find('.leanzote-counter__time-block > span:first-child'), 'color', textColor, true);
-            }
+            // Los colores de Apariencia solo se fuerzan en elementos sin formato propio; el color definido
+            // en el editor (texto, números, etiquetas o separadores) tiene prioridad sobre ellos.
+            setStyle($counter.find(
+                '.leanzote-counter__hours, .leanzote-counter__minutes, .leanzote-counter__seconds, ' +
+                '.leanzote-counter__separator, .leanzote-counter__unit'
+            ).filter(function () {
+                return !$(this).closest('.leanzote-counter__formatted').length;
+            }), 'color', textColor, true);
             return $counter;
         }
 

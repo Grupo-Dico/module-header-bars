@@ -773,6 +773,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="sortOrder" xsi:type="number">15</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -782,6 +783,7 @@
                         <item name="add_images" xsi:type="boolean">false</item>
                         <item name="add_directives" xsi:type="boolean">false</item>
                         <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     </item>
                 </item>
             </argument>
@@ -791,7 +793,7 @@
                 </additionalClasses>
                 <label translate="true">Texto que acompaña al contador</label>
                 <dataScope>counter_text</dataScope>
-                <notice translate="true">Opcional. Texto junto al contador (por ejemplo: Termina en:). Admite formato (tipo de letra, tamaño, estilo y color). No admite emojis.</notice>
+                <notice translate="true">Opcional. Texto junto al contador (por ejemplo: Termina en:). Admite formato (tipo de letra, tamaño, estilo y color).</notice>
             </settings>
             <formElements>
                 <wysiwyg>
@@ -805,6 +807,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     <item name="sortOrder" xsi:type="number">16</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
@@ -814,6 +817,7 @@
                         <item name="add_images" xsi:type="boolean">false</item>
                         <item name="add_directives" xsi:type="boolean">false</item>
                         <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
                     </item>
                 </item>
             </argument>
@@ -824,6 +828,74 @@
                 <label translate="true">Formato de los números del contador</label>
                 <dataScope>counter_numbers_format</dataScope>
                 <notice translate="true">Escribe 00 y aplícale el formato deseado (tipo de letra, tamaño, estilo y color). Ese formato se usa en horas, minutos y segundos. Déjalo vacío para conservar el estilo actual.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+        <field name="counter_labels_format" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="sortOrder" xsi:type="number">17</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Formato de las etiquetas del contador</label>
+                <dataScope>counter_labels_format</dataScope>
+                <notice translate="true">Escribe HRS y aplícale el formato deseado (tipo de letra, tamaño, estilo y color). Ese formato se usa en las etiquetas HRS, MIN y SEGS. Déjalo vacío para conservar el estilo actual.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+        <field name="counter_separator_format" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="sortOrder" xsi:type="number">18</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Formato de los separadores del contador</label>
+                <dataScope>counter_separator_format</dataScope>
+                <notice translate="true">Escribe : y aplícale el formato deseado (tamaño, estilo y color). Se usa en los separadores entre horas, minutos y segundos. Déjalo vacío para conservar el estilo actual.</notice>
             </settings>
             <formElements>
                 <wysiwyg>

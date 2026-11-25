@@ -63,6 +63,8 @@ class Save extends Action
         'button_before',
         'counter_text',
         'counter_numbers_format',
+        'counter_labels_format',
+        'counter_separator_format',
         'store_id',
     ];
 
@@ -91,6 +93,8 @@ class Save extends Action
         'mobile_button_text_3',
         'counter_text',
         'counter_numbers_format',
+        'counter_labels_format',
+        'counter_separator_format',
     ];
 
     /**

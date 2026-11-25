@@ -164,6 +164,8 @@ class ActiveBannerProvider
                 'background_color' => $counterBackgroundColor,
                 'text' => $this->sanitizeInline($banner->getData('counter_text')),
                 'numbers_format' => $this->sanitizeInline($banner->getData('counter_numbers_format')),
+                'labels_format' => $this->sanitizeInline($banner->getData('counter_labels_format')),
+                'separator_format' => $this->sanitizeInline($banner->getData('counter_separator_format')),
             ],
         ];
     }

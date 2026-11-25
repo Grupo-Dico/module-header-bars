@@ -171,16 +171,16 @@ Reglas importantes:
 - Si una entrada guardada no es valida, se ignora al evaluar frontend para evitar ocultamientos globales accidentales.
 
 ## Textos con formato y emojis (DW-360)
-Los campos **Mensaje 1, 2 y 3 (Desktop/Mobile)**, **CTA 1, 2 y 3 (Desktop/Mobile)**, **Texto CTA general**, **Texto que acompana al contador** y **Formato de los numeros del contador** usan el editor de texto de Magento (sin Page Builder). Las URL siguen siendo texto simple.
+Los campos **Mensaje 1, 2 y 3 (Desktop/Mobile)**, **CTA 1, 2 y 3 (Desktop/Mobile)**, **Texto CTA general**, **Texto que acompana al contador** y los formatos de **numeros**, **etiquetas** y **separadores** del contador usan el editor de texto de Magento (sin Page Builder). Las URL siguen siendo texto simple.
 
 - Opciones de formato: tipo de letra (fuentes del editor de Magento), tamano, negrita, cursiva, subrayado, color y alineacion, sobre todo el texto o una parte.
-- Emojis: permitidos en mensajes y CTA. Se guardan en `utf8mb4` (upgrade `1.0.11` convierte la tabla y la conexion del modulo usa `SET NAMES 'utf8mb4'`). No se permiten en el contador.
+- Emojis: permitidos en mensajes y CTA. Se guardan en `utf8mb4` (upgrade `1.0.11` convierte la tabla y la conexion del modulo usa `SET NAMES 'utf8mb4'`). Tambien se permiten en el texto del contador.
 - **Beneficio destacado** (1, 2 y 3, Desktop y Mobile) se elimino del formulario y del frontend. Las columnas se conservan en BD sin uso; el contenido anterior debe recapturarse dentro del Mensaje con negritas.
 - Seguridad: el HTML se sanea al guardar y otra vez al publicar (`Model/Banner/RichTextSanitizer`). Solo se conservan etiquetas de texto (`p`, `div`, `span`, `strong`, `b`, `em`, `i`, `u`, `s`, `br`, `sub`, `sup`) y estas propiedades: `font-family`, `font-size`, `font-weight`, `font-style`, `text-decoration`, `text-align`, `color`, `background-color`, `line-height`. Todo lo demas (scripts, enlaces, imagenes, atributos) se elimina.
 - Tamano maximo de letra: 32px (valores mayores se reducen a 32px para no desbordar la barra).
 - Prioridad de color: el color aplicado en el editor gana sobre el color de **Apariencia** solo en el fragmento donde se aplico; el resto del texto usa el color de Apariencia.
 - Mensaje Mobile vacio: se usa el copy Desktop **con su formato**.
-- Contador: **Texto que acompana al contador** aparece antes de los numeros (solo si se captura). **Formato de los numeros** funciona como muestra: se escribe `00` con el formato deseado y se aplica a horas, minutos y segundos.
+- Contador: **Texto que acompana al contador** aparece antes de los numeros (solo si se captura). Los formatos de numeros, etiquetas y separadores funcionan como muestra: se escribe `00`, `HRS` o `:` con el formato deseado y se aplica a horas, minutos y segundos (o a las tres etiquetas y los dos separadores).
 - La alineacion es visible cuando el texto ocupa mas de una linea o hay varios parrafos; la barra mantiene el mensaje centrado como grupo.
 
 ## Comportamiento en frontend
