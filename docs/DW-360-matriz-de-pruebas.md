@@ -39,6 +39,9 @@ Estado: `Pendiente` en todas las pruebas. QA registra `OK`, `Falla` o `N/A` y la
 | T14 | CA06 | Emoji en CTA | CTA 1 Desktop: "Comprar 🛒". CTA 1 Mobile y Texto CTA general con emoji | Se guardan y se muestran en el botón en Desktop y Mobile | Pendiente |
 | T15 | CA06 | Emoji tras reabrir y guardar de nuevo | Reabrir el banner con emojis, guardar sin cambios, revisar el sitio | Los emojis no se pierden ni se duplican | Pendiente |
 | T15a | CA06 | Editor sin Magezon Page Builder | Abrir un banner en Admin | Los campos de mensaje, CTA y contador muestran el editor de texto de Magento. No aparece el botón "Activate/Deactivate Magezon Page Builder" | Pendiente |
+| T15c | UX Admin | Agrupación por dispositivo | Abrir un banner en Admin, sección 3 | Se ven los grupos DESKTOP y MOBILE. Cada uno tiene las tarjetas Mensaje A, B y C con "Tu mensaje", "Texto del botón (opcional)" y "Enlace del botón (URL)" | Pendiente |
+| T15d | UX Admin | Guardar tras reorganizar | Capturar Desktop A/B y Mobile A/B con botón y URL distintos, guardar y reabrir | Cada valor reaparece en su tarjeta y en el sitio se muestra en el dispositivo y mensaje correctos | Pendiente |
+| T15e | UX Admin | Paso 10 en el contador | Abrir la sección 5. Contador regresivo | Se ve la instrucción del paso 10 antes de los campos de formato, y cada campo indica en su etiqueta qué escribir (00, HRS, :) | Pendiente |
 | T15b | CA06 | Banner guardado con `[mgz_pagebuilder]` | Correr `setup:upgrade` con un banner guardado antes de 1.0.8 | El grid, el formulario y el sitio muestran solo el texto con emojis, sin el JSON del Page Builder | Pendiente |
 | T16 | 4.4 | Emoji en el texto del contador | "Termina en: 🔥" en "Texto que acompaña al contador". Guardar y reabrir | Se guarda y se muestra junto al contador | Pendiente |
 | T16b | Chat 24/11 | Emojis de 4 bytes | En mensaje y CTA capturar ⚡ ✨ 🔥 🚀 🎁 💥 ❤️ | Todos se guardan y se muestran, no solo ⚡ y ✨ | Pendiente |

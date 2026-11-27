@@ -1,0 +1,86 @@
+/**
+ * LeanCommerce Header Bars - formulario del Admin.
+ * Agrupa los mensajes por dispositivo (DESKTOP / MOBILE) y cada mensaje (A, B, C) en una tarjeta.
+ */
+
+/* Texto de ayuda */
+.leanzote-form-help {
+    margin: 0 0 20px;
+    padding: 12px 16px;
+    border-left: 4px solid #eb5202;
+    background: #fffbf5;
+    color: #303030;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.leanzote-form-help p {
+    margin: 0;
+}
+
+/* Grupo por dispositivo */
+.fieldset-wrapper.leanzote-device-group {
+    margin: 0 0 30px;
+    padding: 20px 24px 8px;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    background: #f8f8f8;
+}
+
+.fieldset-wrapper.leanzote-device-group > .fieldset-wrapper-title {
+    margin: 0 0 16px;
+    padding: 0 0 10px;
+    border-bottom: 2px solid #303030;
+}
+
+.fieldset-wrapper.leanzote-device-group > .fieldset-wrapper-title .title {
+    color: #303030;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.fieldset-wrapper.leanzote-device-group > .fieldset-wrapper-title .title::before {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.fieldset-wrapper.leanzote-device-group--desktop > .fieldset-wrapper-title .title::before {
+    content: '\1F5A5';
+}
+
+.fieldset-wrapper.leanzote-device-group--mobile > .fieldset-wrapper-title .title::before {
+    content: '\1F4F1';
+}
+
+/* Tarjeta por mensaje */
+.fieldset-wrapper.leanzote-message-card {
+    margin: 0 0 20px;
+    padding: 16px 20px 4px;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+}
+
+.fieldset-wrapper.leanzote-message-card > .fieldset-wrapper-title {
+    margin: 0 0 12px;
+    padding: 0;
+    border: 0;
+}
+
+.fieldset-wrapper.leanzote-message-card > .fieldset-wrapper-title .title {
+    color: #303030;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.fieldset-wrapper.leanzote-message-card .admin__fieldset {
+    padding: 0;
+}
+
+.fieldset-wrapper.leanzote-message-card .admin__field {
+    margin-bottom: 18px;
+}

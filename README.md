@@ -63,11 +63,23 @@ Fecha y hora local de Magento en la que el banner deja de mostrarse.
 
 La fecha final no puede ser anterior a la fecha inicial. En base de datos las fechas se guardan en UTC. Al abrir el formulario, el DataProvider convierte las fechas guardadas en UTC a hora local para mostrarlas correctamente. El grid usa columnas de fecha de Magento y muestra las fechas en hora local.
 
-### 3. Mensaje principal
+### 3. Mensajes y CTA por dispositivo
+
+La seccion se divide en dos grupos, **DESKTOP** (pantallas de 768 px o mas) y **MOBILE** (menores a 768 px). Cada grupo tiene hasta 3 tarjetas: **Mensaje A**, **Mensaje B** y **Mensaje C**. Cada tarjeta tiene los mismos tres campos:
+
+| Campo en la tarjeta | Desktop A / B / C | Mobile A / B / C |
+|---|---|---|
+| Tu mensaje | `rich_text_content`, `desktop_text_content_2`, `desktop_text_content_3` | `mobile_text_content`, `mobile_text_content_2`, `mobile_text_content_3` |
+| Texto del boton (opcional) | `desktop_button_text_1..3` | `mobile_button_text_1..3` |
+| Enlace del boton (URL) | `desktop_button_link_1..3` | `mobile_button_link_1..3` |
+
+- Solo **Desktop - Mensaje A** es obligatorio.
+- Si un mensaje Mobile queda vacio, se usa el mensaje Desktop de la misma letra.
+- Los mensajes configurados rotan en la barra segun **Tiempo entre mensajes del carrusel**.
 
 **Texto visible en la barra superior** (`rich_text_content`)
 
-Mensaje principal que vera el cliente. En frontend se inserta como texto, no como HTML.
+Mensaje principal que vera el cliente (Desktop - Mensaje A).
 
 Admite emojis y otros caracteres de 4 bytes. La tabla se crea/actualiza en `utf8mb4` y el modulo fuerza `SET NAMES 'utf8mb4'` en la sesion de conexion al leer y guardar, para que los emojis no se reemplacen por `????`.
 
@@ -117,6 +129,18 @@ Fecha y hora local hasta la que el contador cuenta. No puede ser posterior a `en
 Si se captura una fecha del contador, tambien debe capturarse la otra. Si el contador esta activo y no se capturan fechas especificas para el contador, usa el rango general del banner.
 
 Si el banner esta vigente pero el contador aun no llega a su fecha de inicio o ya paso su fecha final, el banner puede mostrarse sin contador. El contador fuera de rango no debe aparecer como `00:00:00` ni en desktop ni en mobile.
+
+**Formato del contador (paso 10 de la guia)**
+
+Antes de los campos de formato, el formulario muestra la instruccion del paso 10. Cada campo indica en su etiqueta el texto de muestra que se debe escribir:
+
+| Campo | Escribir | Se aplica a |
+|---|---|---|
+| Formato de los numeros del contador (`counter_numbers_format`) | `00` | horas, minutos y segundos |
+| Formato de las etiquetas del contador (`counter_labels_format`) | `HRS` | HRS, MIN y SEGS |
+| Formato de los separadores del contador (`counter_separator_format`) | `:` | separadores |
+
+Si se dejan vacios, el contador conserva su estilo de siempre.
 
 ### 6. Apariencia
 

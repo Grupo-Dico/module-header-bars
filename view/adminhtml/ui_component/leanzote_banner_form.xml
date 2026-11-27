@@ -166,510 +166,646 @@
                 <item name="collapsible" xsi:type="boolean">true</item>
                 <item name="opened" xsi:type="boolean">true</item>
                 <item name="sortOrder" xsi:type="number">30</item>
-                <item name="notice" xsi:type="string" translate="true">Cada mensaje puede tener copy con formato y emojis, y botón/URL independientes para Desktop y Mobile.</item>
+                <item name="notice" xsi:type="string" translate="true">Configura hasta 3 mensajes (A, B y C) por dispositivo. Rotan automáticamente en la barra.</item>
             </item>
         </argument>
-        <field name="rich_text_content" formElement="wysiwyg">
+        <container name="messages_help">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/html</item>
+                    <item name="sortOrder" xsi:type="number">5</item>
+                    <item name="additionalClasses" xsi:type="string">leanzote-form-help</item>
+                    <item name="content" xsi:type="string" translate="true"><![CDATA[<p>Configura hasta <strong>3 mensajes</strong> (A, B y C) para <strong>Desktop</strong> y para <strong>Mobile</strong>. Cada mensaje tiene su propio texto, botón y enlace. Si hay más de un mensaje, rotan automáticamente en la barra.</p>]]></item>
+                </item>
+            </argument>
+        </container>
+        <fieldset name="desktop_messages">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">DESKTOP</item>
+                    <item name="collapsible" xsi:type="boolean">false</item>
                     <item name="sortOrder" xsi:type="number">10</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">110px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="leanzote-device-group" xsi:type="boolean">true</item>
+                        <item name="leanzote-device-group--desktop" xsi:type="boolean">true</item>
+
                     </item>
                 </item>
             </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">Mensaje 1 - Desktop *</label>
-                <dataScope>rich_text_content</dataScope>
-                <notice translate="true">Copy del slide 1 para Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">true</rule>
-                </validation>
-            </settings>
-            <formElements>
-                <wysiwyg>
+            <container name="desktop_messages_help">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/html</item>
+                        <item name="sortOrder" xsi:type="number">5</item>
+                        <item name="additionalClasses" xsi:type="string">leanzote-form-help</item>
+                        <item name="content" xsi:type="string" translate="true"><![CDATA[<p>Se muestra en computadoras y tablets (pantallas de 768 px o más).</p>]]></item>
+                    </item>
+                </argument>
+            </container>
+            <fieldset name="desktop_message_a">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Mensaje A</item>
+                        <item name="collapsible" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="leanzote-message-card" xsi:type="boolean">true</item>
+
+                        </item>
+                    </item>
+                </argument>
+                <field name="rich_text_content" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">10</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">110px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
                     <settings>
-                        <wysiwyg>true</wysiwyg>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Tu mensaje</label>
+                        <dataScope>rich_text_content</dataScope>
+                        <notice translate="true">Obligatorio. Es el primer mensaje que verá el cliente. Admite formato y emojis.</notice>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
                     </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="desktop_button_text_1" formElement="wysiwyg">
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="desktop_button_text_1" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">20</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">80px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Texto del botón (opcional)</label>
+                        <dataScope>desktop_button_text_1</dataScope>
+                        <notice translate="true">Ejemplo: ¡Ver más! Déjalo vacío si este mensaje no lleva botón.</notice>
+                    </settings>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="desktop_button_link_1">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Enlace del botón (URL)</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="dataScope" xsi:type="string">desktop_button_link_1</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="notice" xsi:type="string" translate="true">Ruta interna (/df/salas.html) o URL completa (https://...). Puede ser distinta en Desktop y Mobile.</item>
+                        </item>
+                    </argument>
+                </field>
+            </fieldset>
+            <fieldset name="desktop_message_b">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Mensaje B</item>
+                        <item name="collapsible" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="leanzote-message-card" xsi:type="boolean">true</item>
+
+                        </item>
+                    </item>
+                </argument>
+                <field name="desktop_text_content_2" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">10</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">110px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Tu mensaje (opcional)</label>
+                        <dataScope>desktop_text_content_2</dataScope>
+                        <notice translate="true">Déjalo vacío si no necesitas este mensaje. Admite formato y emojis.</notice>
+                    </settings>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="desktop_button_text_2" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">20</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">80px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Texto del botón (opcional)</label>
+                        <dataScope>desktop_button_text_2</dataScope>
+                        <notice translate="true">Ejemplo: ¡Ver más! Déjalo vacío si este mensaje no lleva botón.</notice>
+                    </settings>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="desktop_button_link_2">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Enlace del botón (URL)</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="dataScope" xsi:type="string">desktop_button_link_2</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="notice" xsi:type="string" translate="true">Ruta interna (/df/salas.html) o URL completa (https://...). Puede ser distinta en Desktop y Mobile.</item>
+                        </item>
+                    </argument>
+                </field>
+            </fieldset>
+            <fieldset name="desktop_message_c">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Mensaje C</item>
+                        <item name="collapsible" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">30</item>
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="leanzote-message-card" xsi:type="boolean">true</item>
+
+                        </item>
+                    </item>
+                </argument>
+                <field name="desktop_text_content_3" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">10</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">110px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Tu mensaje (opcional)</label>
+                        <dataScope>desktop_text_content_3</dataScope>
+                        <notice translate="true">Déjalo vacío si no necesitas este mensaje. Admite formato y emojis.</notice>
+                    </settings>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="desktop_button_text_3" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">20</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">80px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Texto del botón (opcional)</label>
+                        <dataScope>desktop_button_text_3</dataScope>
+                        <notice translate="true">Ejemplo: ¡Ver más! Déjalo vacío si este mensaje no lleva botón.</notice>
+                    </settings>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="desktop_button_link_3">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Enlace del botón (URL)</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="dataScope" xsi:type="string">desktop_button_link_3</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="notice" xsi:type="string" translate="true">Ruta interna (/df/salas.html) o URL completa (https://...). Puede ser distinta en Desktop y Mobile.</item>
+                        </item>
+                    </argument>
+                </field>
+            </fieldset>
+        </fieldset>
+        <fieldset name="mobile_messages">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">30</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">80px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">MOBILE</item>
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="leanzote-device-group" xsi:type="boolean">true</item>
+                        <item name="leanzote-device-group--mobile" xsi:type="boolean">true</item>
+
                     </item>
                 </item>
             </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">CTA 1 - Desktop</label>
-                <dataScope>desktop_button_text_1</dataScope>
-                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="desktop_button_link_1">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">URL CTA 1 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_button_link_1</item>
-                    <item name="sortOrder" xsi:type="number">31</item>
-                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="mobile_text_content" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">50</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">110px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+            <container name="mobile_messages_help">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/html</item>
+                        <item name="sortOrder" xsi:type="number">5</item>
+                        <item name="additionalClasses" xsi:type="string">leanzote-form-help</item>
+                        <item name="content" xsi:type="string" translate="true"><![CDATA[<p>Se muestra en celulares (pantallas menores a 768 px). Si dejas vacío un mensaje Mobile, se usa el mismo mensaje de Desktop con su formato.</p>]]></item>
                     </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">Mensaje 1 - Mobile</label>
-                <dataScope>mobile_text_content</dataScope>
-                <notice translate="true">Copy del slide 1 para Mobile. Si se deja vacío, usa el copy Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="mobile_button_text_1" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">70</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">80px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                </argument>
+            </container>
+            <fieldset name="mobile_message_a">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Mensaje A</item>
+                        <item name="collapsible" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="leanzote-message-card" xsi:type="boolean">true</item>
+
+                        </item>
                     </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">CTA 1 - Mobile</label>
-                <dataScope>mobile_button_text_1</dataScope>
-                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
+                </argument>
+                <field name="mobile_text_content" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">10</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">110px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
                     <settings>
-                        <wysiwyg>true</wysiwyg>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Tu mensaje (opcional)</label>
+                        <dataScope>mobile_text_content</dataScope>
+                        <notice translate="true">Si lo dejas vacío, se usa el Mensaje A de Desktop. Admite formato y emojis.</notice>
                     </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="mobile_button_link_1">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">URL CTA 1 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_button_link_1</item>
-                    <item name="sortOrder" xsi:type="number">71</item>
-                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="desktop_text_content_2" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">90</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">110px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="mobile_button_text_1" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">20</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">80px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Texto del botón (opcional)</label>
+                        <dataScope>mobile_button_text_1</dataScope>
+                        <notice translate="true">Ejemplo: ¡Ver más! Déjalo vacío si este mensaje no lleva botón.</notice>
+                    </settings>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="mobile_button_link_1">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Enlace del botón (URL)</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="dataScope" xsi:type="string">mobile_button_link_1</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="notice" xsi:type="string" translate="true">Ruta interna (/df/salas.html) o URL completa (https://...). Puede ser distinta en Desktop y Mobile.</item>
+                        </item>
+                    </argument>
+                </field>
+            </fieldset>
+            <fieldset name="mobile_message_b">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Mensaje B</item>
+                        <item name="collapsible" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="leanzote-message-card" xsi:type="boolean">true</item>
+
+                        </item>
                     </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">Mensaje 2 - Desktop</label>
-                <dataScope>desktop_text_content_2</dataScope>
-                <notice translate="true">Copy del slide 2 para Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
+                </argument>
+                <field name="mobile_text_content_2" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">10</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">110px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
                     <settings>
-                        <wysiwyg>true</wysiwyg>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Tu mensaje (opcional)</label>
+                        <dataScope>mobile_text_content_2</dataScope>
+                        <notice translate="true">Si lo dejas vacío, se usa el Mensaje B de Desktop. Admite formato y emojis.</notice>
                     </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="desktop_button_text_2" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">110</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">80px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="mobile_button_text_2" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">20</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">80px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Texto del botón (opcional)</label>
+                        <dataScope>mobile_button_text_2</dataScope>
+                        <notice translate="true">Ejemplo: ¡Ver más! Déjalo vacío si este mensaje no lleva botón.</notice>
+                    </settings>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="mobile_button_link_2">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Enlace del botón (URL)</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="dataScope" xsi:type="string">mobile_button_link_2</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="notice" xsi:type="string" translate="true">Ruta interna (/df/salas.html) o URL completa (https://...). Puede ser distinta en Desktop y Mobile.</item>
+                        </item>
+                    </argument>
+                </field>
+            </fieldset>
+            <fieldset name="mobile_message_c">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Mensaje C</item>
+                        <item name="collapsible" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">30</item>
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="leanzote-message-card" xsi:type="boolean">true</item>
+
+                        </item>
                     </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">CTA 2 - Desktop</label>
-                <dataScope>desktop_button_text_2</dataScope>
-                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
+                </argument>
+                <field name="mobile_text_content_3" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">10</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">110px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
                     <settings>
-                        <wysiwyg>true</wysiwyg>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Tu mensaje (opcional)</label>
+                        <dataScope>mobile_text_content_3</dataScope>
+                        <notice translate="true">Si lo dejas vacío, se usa el Mensaje C de Desktop. Admite formato y emojis.</notice>
                     </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="desktop_button_link_2">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">URL CTA 2 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_button_link_2</item>
-                    <item name="sortOrder" xsi:type="number">111</item>
-                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="mobile_text_content_2" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">130</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">110px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">Mensaje 2 - Mobile</label>
-                <dataScope>mobile_text_content_2</dataScope>
-                <notice translate="true">Copy del slide 2 para Mobile. Si se deja vacío, usa el copy Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="mobile_button_text_3" formElement="wysiwyg">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="sortOrder" xsi:type="number">20</item>
+                            <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                            <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            <item name="wysiwygConfigData" xsi:type="array">
+                                <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                                <item name="toggle_button" xsi:type="boolean">false</item>
+                                <item name="add_variables" xsi:type="boolean">false</item>
+                                <item name="add_widgets" xsi:type="boolean">false</item>
+                                <item name="add_images" xsi:type="boolean">false</item>
+                                <item name="add_directives" xsi:type="boolean">false</item>
+                                <item name="height" xsi:type="string">80px</item>
+                                <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
                     <settings>
-                        <wysiwyg>true</wysiwyg>
+                        <additionalClasses>
+                            <class name="admin__field-wide">true</class>
+                        </additionalClasses>
+                        <label translate="true">Texto del botón (opcional)</label>
+                        <dataScope>mobile_button_text_3</dataScope>
+                        <notice translate="true">Ejemplo: ¡Ver más! Déjalo vacío si este mensaje no lleva botón.</notice>
                     </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="mobile_button_text_2" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">150</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">80px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">CTA 2 - Mobile</label>
-                <dataScope>mobile_button_text_2</dataScope>
-                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="mobile_button_link_2">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">URL CTA 2 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_button_link_2</item>
-                    <item name="sortOrder" xsi:type="number">151</item>
-                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="desktop_text_content_3" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">170</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">110px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">Mensaje 3 - Desktop</label>
-                <dataScope>desktop_text_content_3</dataScope>
-                <notice translate="true">Copy del slide 3 para Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="desktop_button_text_3" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">190</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">80px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">CTA 3 - Desktop</label>
-                <dataScope>desktop_button_text_3</dataScope>
-                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="desktop_button_link_3">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">URL CTA 3 - Desktop</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">desktop_button_link_3</item>
-                    <item name="sortOrder" xsi:type="number">191</item>
-                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
-                </item>
-            </argument>
-        </field>
-        <field name="mobile_text_content_3" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">210</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">110px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">Mensaje 3 - Mobile</label>
-                <dataScope>mobile_text_content_3</dataScope>
-                <notice translate="true">Copy del slide 3 para Mobile. Si se deja vacío, usa el copy Desktop. Admite formato (tipo de letra, tamaño, negrita, cursiva, subrayado, color y alineación) y emojis.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="mobile_button_text_3" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">230</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">80px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">CTA 3 - Mobile</label>
-                <dataScope>mobile_button_text_3</dataScope>
-                <notice translate="true">Texto del botón. Admite formato y emojis; el botón conserva su diseño, colores y URL. Déjalo vacío si este copy no requiere botón.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="mobile_button_link_3">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">URL CTA 3 - Mobile</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="dataScope" xsi:type="string">mobile_button_link_3</item>
-                    <item name="sortOrder" xsi:type="number">231</item>
-                    <item name="notice" xsi:type="string" translate="true">Ruta interna /promocion o URL https://. Puede ser distinta entre Desktop y Mobile.</item>
-                </item>
-            </argument>
-        </field>
+                    <formElements>
+                        <wysiwyg>
+                            <settings>
+                                <wysiwyg>true</wysiwyg>
+                            </settings>
+                        </wysiwyg>
+                    </formElements>
+                </field>
+                <field name="mobile_button_link_3">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Enlace del botón (URL)</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">banner</item>
+                            <item name="dataScope" xsi:type="string">mobile_button_link_3</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="notice" xsi:type="string" translate="true">Ruta interna (/df/salas.html) o URL completa (https://...). Puede ser distinta en Desktop y Mobile.</item>
+                        </item>
+                    </argument>
+                </field>
+            </fieldset>
+        </fieldset>
         <field name="carousel_interval">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -678,7 +814,7 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">banner</item>
                     <item name="dataScope" xsi:type="string">carousel_interval</item>
-                    <item name="sortOrder" xsi:type="number">250</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
                     <item name="default" xsi:type="number">5</item>
                     <item name="validation" xsi:type="array">
                         <item name="validate-number" xsi:type="boolean">true</item>
@@ -817,13 +953,23 @@
                 </wysiwyg>
             </formElements>
         </field>
+        <container name="counter_format_help">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/html</item>
+                    <item name="sortOrder" xsi:type="number">16</item>
+                    <item name="additionalClasses" xsi:type="string">leanzote-form-help</item>
+                    <item name="content" xsi:type="string" translate="true"><![CDATA[<p><strong>Paso 10. Formato del contador.</strong> Usa los campos de muestra: en <strong>Formato de los números del contador</strong> escribe <strong>00</strong> y aplícale el formato; en <strong>Formato de las etiquetas del contador</strong> escribe <strong>HRS</strong>; en <strong>Formato de los separadores del contador</strong> escribe <strong>:</strong>. Déjalos vacíos para conservar el estilo de siempre.</p>]]></item>
+                </item>
+            </argument>
+        </container>
         <field name="counter_numbers_format" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
                     <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
                     <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="sortOrder" xsi:type="number">16</item>
+                    <item name="sortOrder" xsi:type="number">17</item>
                     <item name="wysiwygConfigData" xsi:type="array">
                         <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
                         <item name="toggle_button" xsi:type="boolean">false</item>
@@ -840,9 +986,9 @@
                 <additionalClasses>
                     <class name="admin__field-wide">true</class>
                 </additionalClasses>
-                <label translate="true">Formato de los números del contador</label>
+                <label translate="true">Formato de los números del contador (escribe 00)</label>
                 <dataScope>counter_numbers_format</dataScope>
-                <notice translate="true">Escribe 00 y aplícale el formato deseado (tipo de letra, tamaño, estilo y color). Ese formato se usa en horas, minutos y segundos. Déjalo vacío para conservar el estilo actual.</notice>
+                <notice translate="true">Paso 10: escribe 00 y aplícale el formato (tipo de letra, tamaño, estilo y color). Se usa en horas, minutos y segundos. Déjalo vacío para conservar el estilo de siempre.</notice>
             </settings>
             <formElements>
                 <wysiwyg>
@@ -853,41 +999,6 @@
             </formElements>
         </field>
         <field name="counter_labels_format" formElement="wysiwyg">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">banner</item>
-                    <item name="sortOrder" xsi:type="number">17</item>
-                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
-                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    <item name="wysiwygConfigData" xsi:type="array">
-                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
-                        <item name="toggle_button" xsi:type="boolean">false</item>
-                        <item name="add_variables" xsi:type="boolean">false</item>
-                        <item name="add_widgets" xsi:type="boolean">false</item>
-                        <item name="add_images" xsi:type="boolean">false</item>
-                        <item name="add_directives" xsi:type="boolean">false</item>
-                        <item name="height" xsi:type="string">80px</item>
-                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
-                    </item>
-                </item>
-            </argument>
-            <settings>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <label translate="true">Formato de las etiquetas del contador</label>
-                <dataScope>counter_labels_format</dataScope>
-                <notice translate="true">Escribe HRS y aplícale el formato deseado (tipo de letra, tamaño, estilo y color). Ese formato se usa en las etiquetas HRS, MIN y SEGS. Déjalo vacío para conservar el estilo actual.</notice>
-            </settings>
-            <formElements>
-                <wysiwyg>
-                    <settings>
-                        <wysiwyg>true</wysiwyg>
-                    </settings>
-                </wysiwyg>
-            </formElements>
-        </field>
-        <field name="counter_separator_format" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">banner</item>
@@ -910,9 +1021,44 @@
                 <additionalClasses>
                     <class name="admin__field-wide">true</class>
                 </additionalClasses>
-                <label translate="true">Formato de los separadores del contador</label>
+                <label translate="true">Formato de las etiquetas del contador (escribe HRS)</label>
+                <dataScope>counter_labels_format</dataScope>
+                <notice translate="true">Paso 10: escribe HRS y aplícale el formato. Se usa en las etiquetas HRS, MIN y SEGS. Déjalo vacío para conservar el estilo de siempre.</notice>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+        <field name="counter_separator_format" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">banner</item>
+                    <item name="sortOrder" xsi:type="number">19</item>
+                    <item name="class" xsi:type="string">LeanCommerce\LeanZote\Ui\Component\Form\Element\Wysiwyg</item>
+                    <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                        <item name="add_directives" xsi:type="boolean">false</item>
+                        <item name="height" xsi:type="string">80px</item>
+                        <item name="allowUtf8mb4" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Formato de los separadores del contador (escribe :)</label>
                 <dataScope>counter_separator_format</dataScope>
-                <notice translate="true">Escribe : y aplícale el formato deseado (tamaño, estilo y color). Se usa en los separadores entre horas, minutos y segundos. Déjalo vacío para conservar el estilo actual.</notice>
+                <notice translate="true">Paso 10: escribe : y aplícale el formato (tamaño, estilo y color). Se usa entre horas, minutos y segundos. Déjalo vacío para conservar el estilo de siempre.</notice>
             </settings>
             <formElements>
                 <wysiwyg>
